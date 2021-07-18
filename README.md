@@ -2,6 +2,23 @@
 
 > _ROS1 (Robot Operating System) message serialization, for reading and writing bags and network messages_
 
+## MessageReader
+
+Message reader deserializes ROS messages into plain objects. The messages are fully deserialized.
+
+```typescript
+import { MessageReader } from "@foxglove/rosmsg-serialization";
+
+// message definition comes from @foxglove/rosmsg
+const reader = new MessageReader(messageDefinition);
+
+// deserialize a buffer into an object
+const message = reader.readMessage([0x00, 0x00, ...]);
+
+// access message fields
+message.header.stamp;
+```
+
 ## LazyMessage
 
 Lazy messages provide on-demand access and deserialization to fields of a serialized ROS message. Creating
