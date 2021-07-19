@@ -75,3 +75,20 @@ const uint8Array = writer.writeMessage({
 1. Run `yarn version --[major|minor|patch]` to bump version
 2. Run `git push && git push --tags` to push new tag
 3. GitHub Actions will take care of the rest
+
+## Benchmarks
+
+The `bench` folder contains a benchmark project.
+
+To run the benchmarks, first install the dependencies:
+
+```
+cd bench
+yarn
+```
+
+Then run the benchmarks:
+
+```
+yarn bench
+```
