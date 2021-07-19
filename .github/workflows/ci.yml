@@ -17,9 +17,10 @@ jobs:
 
       - run: yarn install --frozen-lockfile
       - run: yarn run build
+      - run: cd bench && yarn
       - run: yarn run lint:ci
       - run: yarn run test
-      - run: cd bench && yarn && yarn bench
+      - run: cd bench && yarn bench
 
       - name: Publish to NPM
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
