@@ -1,9 +1,10 @@
 import { bench } from "./bench";
 
-bench({
+void bench({
   name: "std_msgs/Header",
   lastField: (msg) => {
-    (msg as any).frame_id;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+    void (msg as any).frame_id;
   },
   msgDef: `
       uint32 seq
@@ -17,10 +18,11 @@ bench({
   },
 });
 
-bench({
+void bench({
   name: "sensor_msgs/PointCloud2",
   lastField: (msg) => {
-    (msg as any).is_dense;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+    void (msg as any).is_dense;
   },
   msgDef: `
     Header header
@@ -66,10 +68,11 @@ bench({
   },
 });
 
-bench({
+void bench({
   name: "diagnostic_msgs/DiagnosticArray",
   lastField: (msg) => {
-    (msg as any).status[19].values[19].value;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+    void (msg as any).status[19].values[19].value;
   },
   msgDef: `
     Header header

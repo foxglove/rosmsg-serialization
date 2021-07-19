@@ -1,6 +1,6 @@
-import { Benchmark, BenchmarkData, Measurement } from "kelonio";
-import { printTable } from "console-table-printer";
 import { parse } from "@foxglove/rosmsg";
+import { printTable } from "console-table-printer";
+import { Benchmark, BenchmarkData, Measurement } from "kelonio";
 import percentile from "percentile";
 
 import { LazyMessageReader, MessageReader, MessageWriter } from "../../src";
@@ -12,17 +12,16 @@ type Testcase = {
   lastField: (msg: unknown) => void;
 };
 
-async function bench(testCase: Testcase) {
+async function bench(testCase: Testcase): Promise<void> {
   const benchmark = new Benchmark();
 
   const msgDefStr = testCase.msgDef;
-  const msg = testCase.msg;
   const lastField = testCase.lastField;
 
   const messageDefinition = parse(msgDefStr);
 
   const writer = new MessageWriter(messageDefinition);
-  const msgData = writer.writeMessage(msg);
+  const msgData = writer.writeMessage(testCase.msg);
 
   await benchmark.record(["reg", "create new reader"], () => {
     new MessageReader(messageDefinition);
@@ -101,7 +100,7 @@ async function bench(testCase: Testcase) {
   printTable(Object.values(tableReport(benchmark.data)));
 }
 
-function tableReport(level: BenchmarkData, obj: Record<string, unknown> = {}, prefix: string = "") {
+function tableReport(level: BenchmarkData, obj: Record<string, unknown> = {}, prefix = "") {
   for (const [description, info] of Object.entries(level)) {
     const showMeasurement = info.durations.length > 0;
     const showChildren = Object.keys(info.children).length > 0;
