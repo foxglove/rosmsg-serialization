@@ -78,16 +78,7 @@ const uint8Array = writer.writeMessage({
 
 ## Benchmarks
 
-The `bench` folder contains a benchmark project.
-
-To run the benchmarks, first install the dependencies:
-
-```
-cd bench
-yarn
-```
-
-Then run the benchmarks:
+The `bench` folder contains benchmarks. Run with:
 
 ```
 yarn bench
