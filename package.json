@@ -45,7 +45,7 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@foxglove/rosmsg": "0.2.1"
+    "@foxglove/rosmsg": "^1.0.0"
   },
   "devDependencies": {
     "@foxglove/eslint-plugin": "0.13.0",
