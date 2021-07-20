@@ -9,17 +9,22 @@
 
 import { RosMsgDefinition } from "@foxglove/rosmsg";
 
+type TypedArray =
+  | Int8Array
+  | Uint8Array
+  | Int16Array
+  | Uint16Array
+  | Int32Array
+  | Uint32Array
+  | Float32Array
+  | Float64Array
+  | BigInt64Array
+  | BigUint64Array;
+
 interface TypedArrayConstructor {
-  new (buffer: ArrayBuffer, byteOffset: number, length: number):
-    | Int8Array
-    | Uint8Array
-    | Int16Array
-    | Uint16Array
-    | Int32Array
-    | Uint32Array
-    | Uint8ClampedArray
-    | Float32Array
-    | Float64Array;
+  new (length?: number): TypedArray;
+  new (buffer: ArrayBuffer, byteOffset: number, length: number): TypedArray;
+  BYTES_PER_ELEMENT: number;
 }
 
 // this has hard-coded buffer reading functions for each
@@ -104,12 +109,24 @@ class StandardTypeReader {
     return this.view.getUint8(this.offset++);
   }
 
-  typedArray(len: number | null | undefined, arrayType: TypedArrayConstructor) {
-    const arrayLength = len == null ? this.uint32() : len;
-    const data = new arrayType(this.view.buffer, this.offset + this.view.byteOffset, arrayLength);
-    this.offset += arrayLength;
+  typedArray(len: number | null | undefined, TypedArrayConstructor: TypedArrayConstructor) {
+    const arrayLength = len == undefined ? this.uint32() : len;
+    const view = this.view;
+    const totalOffset = this.offset + view.byteOffset;
+    this.offset += arrayLength * TypedArrayConstructor.BYTES_PER_ELEMENT;
 
-    return data;
+    // new TypedArray(...) will throw if you try to make a typed array on unaligned boundary
+    // but for aligned access we can use a typed array and avoid any extra memory alloc/copy
+    if (totalOffset % TypedArrayConstructor.BYTES_PER_ELEMENT === 0) {
+      return new TypedArrayConstructor(view.buffer, totalOffset, arrayLength);
+    }
+
+    // copy the data to align it
+    // using _set_ is slightly faster than slice on the array buffer according to benchmarks when written
+    const size = TypedArrayConstructor.BYTES_PER_ELEMENT * arrayLength;
+    const copy = new Uint8Array(size);
+    copy.set(new Uint8Array(view.buffer, totalOffset, size));
+    return new TypedArrayConstructor(copy.buffer, copy.byteOffset, arrayLength);
   }
 
   int16() {
@@ -202,6 +219,33 @@ const friendlyName = (name: string) => name.replace(/\//g, "_");
 
 type NamedRosMsgDefinition = RosMsgDefinition & { name: string };
 
+function toTypedArrayType(rosType: string): string | undefined {
+  switch (rosType) {
+    case "int8":
+      return "Int8Array";
+    case "uint8":
+      return "Uint8Array";
+    case "int16":
+      return "Int16Array";
+    case "uint16":
+      return "Uint16Array";
+    case "int32":
+      return "Int32Array";
+    case "uint32":
+      return "Uint32Array";
+    case "int64":
+      return "BigInt64Array";
+    case "uint64":
+      return "BigUint64Array";
+    case "float32":
+      return "Float32Array";
+    case "float64":
+      return "Float64Array";
+    default:
+      return undefined;
+  }
+}
+
 const createParser = (types: RosMsgDefinition[], freeze: boolean) => {
   const unnamedTypes = types.filter((type) => !type.name);
   if (unnamedTypes.length !== 1) {
@@ -222,10 +266,11 @@ const createParser = (types: RosMsgDefinition[], freeze: boolean) => {
         return;
       }
       if (def.isArray === true) {
-        if (def.type === "uint8" || def.type === "int8") {
-          const arrayType = def.type === "uint8" ? "Uint8Array" : "Int8Array";
+        // detect if typed array
+        const typedArrayType = toTypedArrayType(def.type);
+        if (typedArrayType != undefined) {
           readerLines.push(
-            `this.${def.name} = reader.typedArray(${String(def.arrayLength)}, ${arrayType});`,
+            `this.${def.name} = reader.typedArray(${String(def.arrayLength)}, ${typedArrayType});`,
           );
           return;
         }
