@@ -38,7 +38,8 @@
     "lint:ci": "eslint --report-unused-disable-directives .",
     "lint": "eslint --report-unused-disable-directives --fix .",
     "prepublishOnly": "yarn lint:ci && yarn test",
-    "test": "jest"
+    "test": "jest",
+    "bench": "ts-node --project tsconfig.cjs.json bench/index.ts"
   },
   "engines": {
     "node": ">= 14"
@@ -53,8 +54,9 @@
     "@types/eslint-plugin-prettier": "^3",
     "@types/jest": "^26.0.23",
     "@types/prettier": "2.3.2",
-    "@typescript-eslint/eslint-plugin": "4.28.3",
-    "@typescript-eslint/parser": "4.28.3",
+    "@typescript-eslint/eslint-plugin": "4.28.4",
+    "@typescript-eslint/parser": "4.28.4",
+    "console-table-printer": "^2.9.0",
     "esbuild": "0.12.15",
     "esbuild-jest": "0.5.0",
     "eslint": "7.31.0",
@@ -64,7 +66,10 @@
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-prettier": "3.4.0",
     "jest": "27.0.6",
+    "kelonio": "^0.6.0",
+    "percentile": "^1.4.0",
     "prettier": "2.3.2",
+    "ts-node": "^10.1.0",
     "typescript": "4.3.5"
   }
 }
