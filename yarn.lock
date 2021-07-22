@@ -3744,9 +3744,9 @@ path-type@^4.0.0:
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
 percentile@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/percentile/-/percentile-1.4.0.tgz#84e03f1f37722ddcc1f527d5367743b7bb30f336"
-  integrity sha512-W/Q9I9nUm9Z7JvVHWQ0zRfUUdSu3NVLeiECBCrWqxdMKAOMcUBST0RhAtlvN1itLnR8HI/LSDD96clw3RenzZQ==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/percentile/-/percentile-1.5.0.tgz#6af7edebbe2578348ba81c4ebefd851b937dc130"
+  integrity sha512-Hc98z8qBZ5+rHNuWUQ4PTfqAeq4ndnSwYH18PSIa4lMWIY2sITFS/EC6/cOFujgbN4pdc6sALO4HvahYNYnxwA==
 
 picomatch@^2.0.4, picomatch@^2.2.3:
   version "2.3.0"
