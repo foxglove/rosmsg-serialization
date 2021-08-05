@@ -54,7 +54,7 @@
     "@types/eslint-plugin-prettier": "^3",
     "@types/jest": "^26.0.23",
     "@types/prettier": "2.3.2",
-    "@typescript-eslint/eslint-plugin": "4.28.4",
+    "@typescript-eslint/eslint-plugin": "4.29.0",
     "@typescript-eslint/parser": "4.29.0",
     "console-table-printer": "^2.9.0",
     "esbuild": "0.12.17",
