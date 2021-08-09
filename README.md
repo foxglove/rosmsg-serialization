@@ -83,3 +83,7 @@ The `bench` folder contains benchmarks. Run with:
 ```
 yarn bench
 ```
+
+## Stay in touch
+
+Join our [Slack channel](https://foxglove.dev/join-slack) to ask questions, share feedback, and stay up to date on what our team is working on.
