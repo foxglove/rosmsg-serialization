@@ -5,7 +5,12 @@ import { deserializers, fixedSizeTypes, FixedSizeTypes } from "./BuiltinDeserial
 const builtinSizes = {
   // strings are the only builtin type that are variable size
   string: (view: DataView, offset: number) => {
-    return 4 + view.getInt32(offset, true);
+    const len = view.getInt32(offset, true);
+    const maxLen = view.byteLength - offset - 4;
+    if (len < 0 || len > maxLen) {
+      throw new RangeError(`String length error: length ${len}, maxLength ${maxLen}`);
+    }
+    return 4 + len;
   },
   fixedArray: (
     view: DataView,
@@ -20,6 +25,12 @@ const builtinSizes = {
       size += elementSize;
       offset += elementSize;
     }
+
+    const maxSize = view.byteLength - startOffset;
+    if (size > maxSize) {
+      throw new RangeError(`Fixed array length error: size ${size}, maxSize ${maxSize}`);
+    }
+
     return size;
   },
   array: (
@@ -37,6 +48,12 @@ const builtinSizes = {
       size += elementSize;
       offset += elementSize;
     }
+
+    const maxSize = view.byteLength - startOffset;
+    if (size > maxSize) {
+      throw new RangeError(`Dynamic array length error: size ${size}, maxSize ${maxSize}`);
+    }
+
     return size;
   },
 };

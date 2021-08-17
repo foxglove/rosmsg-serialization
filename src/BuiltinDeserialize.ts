@@ -27,6 +27,15 @@ function MakeTypedArrayDeserialze<T extends Indexable>(
   return (view: DataView, offset: number, len: number): T => {
     let currentOffset = offset;
     const totalOffset = view.byteOffset + currentOffset;
+    const size = TypedArrayConstructor.BYTES_PER_ELEMENT * len;
+
+    const maxSize = view.byteLength - totalOffset;
+    if (size < 0 || size > maxSize) {
+      throw new RangeError(
+        `Array(${getter}) deserialization error: size ${size}, maxSize ${maxSize}`,
+      );
+    }
+
     // new TypedArray(...) will throw if you try to make a typed array on unaligned boundary
     // but for aligned access we can use a typed array and avoid any extra memory alloc/copy
     if (totalOffset % TypedArrayConstructor.BYTES_PER_ELEMENT === 0) {
@@ -45,7 +54,6 @@ function MakeTypedArrayDeserialze<T extends Indexable>(
 
     // if the length is > 10, then doing a copy of the data to align it is faster
     // using _set_ is slightly faster than slice on the array buffer according to today's benchmarks
-    const size = TypedArrayConstructor.BYTES_PER_ELEMENT * len;
     const copy = new Uint8Array(size);
     copy.set(new Uint8Array(view.buffer, totalOffset, size));
     return new TypedArrayConstructor(copy.buffer, copy.byteOffset, len);
@@ -149,6 +157,10 @@ export const deserializers: BuiltinReaders & {
   duration: (view, offset) => deserializers.time(view, offset),
   string: (view, offset) => {
     const len = view.getInt32(offset, true);
+    const maxLen = view.byteLength - offset - 4;
+    if (len < 0 || len > maxLen) {
+      throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
+    }
     const codePoints = new Uint8Array(view.buffer, view.byteOffset + offset + 4, len);
     const decoder = new TextDecoder("utf8");
     return decoder.decode(codePoints);

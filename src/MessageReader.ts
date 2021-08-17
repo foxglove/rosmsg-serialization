@@ -69,6 +69,10 @@ class StandardTypeReader {
 
   string() {
     const len = this.int32();
+    const maxLen = this.view.byteLength - this.offset - 4;
+    if (len < 0 || len > maxLen) {
+      throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
+    }
     const codePoints = new Uint8Array(
       this.buffer.buffer,
       this.buffer.byteOffset + this.offset,
