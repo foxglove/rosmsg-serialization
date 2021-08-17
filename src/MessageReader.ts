@@ -69,15 +69,12 @@ class StandardTypeReader {
 
   string() {
     const len = this.int32();
-    const maxLen = this.view.byteLength - this.offset - 4;
+    const totalOffset = this.buffer.byteOffset + this.offset;
+    const maxLen = this.buffer.byteLength - this.offset;
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
-    const codePoints = new Uint8Array(
-      this.buffer.buffer,
-      this.buffer.byteOffset + this.offset,
-      len,
-    );
+    const codePoints = new Uint8Array(this.buffer.buffer, totalOffset, len);
     this.offset += len;
 
     // if the string is relatively short we can use apply, but longer strings can benefit from the speed of TextDecoder.

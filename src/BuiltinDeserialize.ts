@@ -157,11 +157,12 @@ export const deserializers: BuiltinReaders & {
   duration: (view, offset) => deserializers.time(view, offset),
   string: (view, offset) => {
     const len = view.getInt32(offset, true);
-    const maxLen = view.byteLength - offset - 4;
+    const totalOffset = view.byteOffset + offset + 4;
+    const maxLen = view.byteLength - offset;
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
-    const codePoints = new Uint8Array(view.buffer, view.byteOffset + offset + 4, len);
+    const codePoints = new Uint8Array(view.buffer, totalOffset, len);
     const decoder = new TextDecoder("utf8");
     return decoder.decode(codePoints);
   },
