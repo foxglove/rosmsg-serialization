@@ -251,12 +251,16 @@ function toTypedArrayType(rosType: string): string | undefined {
 }
 
 const createParser = (types: RosMsgDefinition[], freeze: boolean) => {
+  if (types.length === 0) {
+    throw new Error(`no types given`);
+  }
+
   const unnamedTypes = types.filter((type) => !type.name);
-  if (unnamedTypes.length !== 1) {
+  if (unnamedTypes.length > 1) {
     throw new Error("multiple unnamed types");
   }
 
-  const unnamedType = unnamedTypes[0]!;
+  const unnamedType = unnamedTypes.length > 0 ? unnamedTypes[0]! : types[0]!;
 
   // keep only definitions with a name
   const namedTypes: NamedRosMsgDefinition[] = types.filter(
