@@ -218,12 +218,16 @@ type WriterAndSizeCalculator = {
 };
 
 function createWriterAndSizeCalculator(types: RosMsgDefinition[]): WriterAndSizeCalculator {
+  if (types.length === 0) {
+    throw new Error(`no types given`);
+  }
+
   const unnamedTypes = types.filter((type) => type.name == undefined);
-  if (unnamedTypes.length !== 1) {
+  if (unnamedTypes.length > 1) {
     throw new Error("multiple unnamed types");
   }
 
-  const unnamedType = unnamedTypes[0]!;
+  const unnamedType = unnamedTypes.length > 0 ? unnamedTypes[0]! : types[0]!;
 
   const namedTypes: NamedRosMsgDefinition[] = types.filter(
     (type) => type.name != undefined,
