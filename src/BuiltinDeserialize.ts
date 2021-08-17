@@ -11,7 +11,7 @@ interface TypedArrayConstructor<T> {
 // Given a TypeArray constructor (Int32Array, Float32Array, etc), create a deserialization function
 // This deserialization function tries to first use aligned access and falls back to iteration
 function MakeTypedArrayDeserialze<T extends Indexable>(
-  TypedArrayConstructor: TypedArrayConstructor<T>,
+  TypedArrayConstructor: TypedArrayConstructor<T> | undefined,
   getter:
     | "getInt8"
     | "getUint8"
@@ -24,7 +24,13 @@ function MakeTypedArrayDeserialze<T extends Indexable>(
     | "getFloat32"
     | "getFloat64",
 ) {
+  if (TypedArrayConstructor == undefined) {
+    console.warn("bigint arrays are not supported in this environment");
+  }
   return (view: DataView, offset: number, len: number): T => {
+    if (TypedArrayConstructor == undefined) {
+      throw new Error("bigint arrays are not supported in this environment");
+    }
     let currentOffset = offset;
     const totalOffset = view.byteOffset + currentOffset;
     const size = TypedArrayConstructor.BYTES_PER_ELEMENT * len;
@@ -181,8 +187,14 @@ export const deserializers: BuiltinReaders & {
   uint16Array: MakeTypedArrayDeserialze(Uint16Array, "getUint16"),
   int32Array: MakeTypedArrayDeserialze(Int32Array, "getInt32"),
   uint32Array: MakeTypedArrayDeserialze(Uint32Array, "getUint32"),
-  int64Array: MakeTypedArrayDeserialze(BigInt64Array, "getBigInt64"),
-  uint64Array: MakeTypedArrayDeserialze(BigUint64Array, "getBigUint64"),
+  int64Array: MakeTypedArrayDeserialze(
+    typeof BigInt64Array === "function" ? BigInt64Array : undefined,
+    "getBigInt64",
+  ),
+  uint64Array: MakeTypedArrayDeserialze(
+    typeof BigUint64Array === "function" ? BigUint64Array : undefined,
+    "getBigUint64",
+  ),
   float32Array: MakeTypedArrayDeserialze(Float32Array, "getFloat32"),
   float64Array: MakeTypedArrayDeserialze(Float64Array, "getFloat64"),
   timeArray: (view, offset, len) => {
