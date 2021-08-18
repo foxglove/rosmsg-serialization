@@ -35,7 +35,7 @@ function MakeTypedArrayDeserialze<T extends Indexable>(
     const totalOffset = view.byteOffset + currentOffset;
     const size = TypedArrayConstructor.BYTES_PER_ELEMENT * len;
 
-    const maxSize = view.byteLength - totalOffset;
+    const maxSize = view.byteLength - offset;
     if (size < 0 || size > maxSize) {
       throw new RangeError(
         `Array(${getter}) deserialization error: size ${size}, maxSize ${maxSize}`,

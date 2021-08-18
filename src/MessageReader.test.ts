@@ -25,10 +25,24 @@ describe("MessageReader", () => {
     (msgDef: string, arr: Iterable<number>, expected: Record<string, unknown>) => {
       const buffer = Uint8Array.from(arr);
       const reader = new MessageReader(parseMessageDefinition(msgDef));
-      const read = reader.readMessage(buffer);
 
-      // check that our message matches the object
-      expect(read).toEqual(expected);
+      // read aligned array
+      {
+        const read = reader.readMessage(buffer);
+        expect(read).toEqual(expected);
+      }
+
+      // read offset array
+      {
+        const offset = 4;
+        const fullArr = new Uint8Array(buffer.length + offset);
+        fullArr.set(buffer, offset);
+
+        const read = reader.readMessage(
+          new Uint8Array(fullArr.buffer, fullArr.byteOffset + offset, fullArr.byteLength - offset),
+        );
+        expect(read).toEqual(expected);
+      }
     },
   );
 
