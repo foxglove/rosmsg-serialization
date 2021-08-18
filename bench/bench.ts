@@ -45,6 +45,11 @@ async function bench(testCase: Testcase): Promise<void> {
 
   {
     const messageReader = new LazyMessageReader(messageDefinition);
+
+    await benchmark.record(["lazy", "size"], () => {
+      messageReader.size(msgData);
+    });
+
     await benchmark.record(["lazy", "read"], () => {
       messageReader.readMessage(msgData);
     });
