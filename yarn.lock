@@ -341,10 +341,12 @@
   resolved "https://registry.yarnpkg.com/@foxglove/eslint-plugin/-/eslint-plugin-0.14.0.tgz#d55b512cb86d98ebd228b44e96949867967130c5"
   integrity sha512-v+sHf5PwH9245i91nG2CO1zLjF21jsL6rhXwyObvvi29XguNum0+wJiXgem64MD6w/zbsmBx4lBYA2DAKISXAA==
 
-"@foxglove/rosmsg@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@foxglove/rosmsg/-/rosmsg-1.0.2.tgz#8b354c08e8eed6aa2ea15b244be665e99e29f551"
-  integrity sha512-I9X6AiNJN28yyns1qH+f9F313VcWSjVzELKey+/Mjo6oF5FhjctXt2/bv+vbYv2swfIZwtQ39P70FfhTa6w5PQ==
+"@foxglove/rosmsg@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@foxglove/rosmsg/-/rosmsg-2.0.0.tgz#0ae51f4408580bb25cea8e4796aebc4011f61594"
+  integrity sha512-G5PqgF9kDBayLKYBpL3stKvuiiHf5nxH0IT5XNkOC7kaTMGuhfxYxncWlgfc3bFdpvwc6NWioaJyRkQ2AG7Maw==
+  dependencies:
+    md5-typescript "^1.0.5"
 
 "@foxglove/tsconfig@^1.1.0":
   version "1.1.0"
@@ -2804,6 +2806,11 @@ mathjs@^6.2.3:
     seed-random "^2.2.0"
     tiny-emitter "^2.1.0"
     typed-function "^1.1.1"
+
+md5-typescript@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/md5-typescript/-/md5-typescript-1.0.5.tgz#68c0b24dff8e5d3162e498fa9893b63be72e038f"
+  integrity sha1-aMCyTf+OXTFi5Jj6mJO2O+cuA48=
 
 merge-stream@^2.0.0:
   version "2.0.0"
