@@ -1,4 +1,6 @@
 import { parse as parseMessageDefinition } from "@foxglove/rosmsg";
+import parserBabel from "prettier/parser-babel";
+import prettier from "prettier/standalone";
 
 import { LazyMessageReader } from "./LazyMessageReader";
 import messageReaderTests from "./fixtures/messageReaderTests";
@@ -11,7 +13,10 @@ describe("LazyReader", () => {
       const reader = new LazyMessageReader(parseMessageDefinition(msgDef));
 
       // allows for easier review of the generated parser source
-      expect(reader.source()).toMatchSnapshot(msgDef);
+      const source = reader.source();
+      expect(prettier.format(source, { parser: "babel", plugins: [parserBabel] })).toMatchSnapshot(
+        msgDef,
+      );
 
       // read aligned array
       {
