@@ -133,6 +133,7 @@ class StandardTypeWriter {
     this.textEncoder.encodeInto(value, this.data.subarray(stringOffset + 4));
   }
 
+  // eslint-disable-next-line @foxglove/no-boolean-parameters
   bool(value: boolean): void {
     this.uint8(value ? 1 : 0);
   }

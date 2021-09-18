@@ -10,7 +10,7 @@ describe("LazyReader", () => {
     "should deserialize %s",
     (msgDef: string, arr: Iterable<number>, expected: Record<string, unknown>) => {
       const buffer = Uint8Array.from(arr);
-      const reader = new LazyMessageReader(parseMessageDefinition(msgDef));
+      const reader = new LazyMessageReader<Record<string, unknown>>(parseMessageDefinition(msgDef));
 
       // allows for easier review of the generated parser source
       const source = reader.source();
@@ -25,8 +25,20 @@ describe("LazyReader", () => {
         // check that our reader expected size matches the buffer size
         expect(reader.size(buffer)).toEqual(buffer.length);
 
-        // check that our message matches the object
+        // check that our message matches the full object
+        const obj = read.toJSON();
         expect(read.toJSON()).toEqual(expected);
+
+        // manually read each field to ensure lazy field access works
+        for (const key in obj) {
+          if (typeof expected[key] === "object") {
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(read[key]).toMatchObject(expected[key] as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+          } else {
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(read[key]).toEqual(expected[key]);
+          }
+        }
       }
 
       // read offset array
@@ -39,7 +51,20 @@ describe("LazyReader", () => {
           new Uint8Array(fullArr.buffer, fullArr.byteOffset + offset, fullArr.byteLength - offset),
         );
         expect(reader.size(buffer)).toEqual(buffer.length);
-        expect(read.toJSON()).toEqual(expected);
+
+        const obj = read.toJSON();
+        expect(obj).toEqual(expected);
+
+        // manually read each field to ensure lazy field access works
+        for (const key in obj) {
+          if (typeof expected[key] === "object") {
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(read[key]).toMatchObject(expected[key] as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+          } else {
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(read[key]).toEqual(expected[key]);
+          }
+        }
       }
     },
   );

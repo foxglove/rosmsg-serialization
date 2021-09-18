@@ -7,7 +7,7 @@ exports[`LazyReader should deserialize CustomType custom
     ============
     MSG: custom_type/CustomType
     uint8 first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class custom_type_CustomType {
     static first_size(view /* dataview */, offset) {
       return 1;
@@ -47,14 +47,18 @@ exports[`LazyReader should deserialize CustomType custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
   }
 
@@ -100,9 +104,13 @@ exports[`LazyReader should deserialize CustomType custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        custom: this.custom.toJSON(),
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get custom() {
@@ -128,7 +136,7 @@ exports[`LazyReader should deserialize CustomType[] custom
     ============
     MSG: custom_type/MoreCustom
     uint8 field 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class custom_type_MoreCustom {
     static field_size(view /* dataview */, offset) {
       return 1;
@@ -168,14 +176,18 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        field: this.field,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get field() {
       const offset = this.field_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
   }
 
@@ -221,9 +233,13 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        another: this.another.toJSON(),
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get another() {
@@ -234,7 +250,7 @@ exports[`LazyReader should deserialize CustomType[] custom
 
   class __RootMsg {
     static custom_size(view /* dataview */, offset) {
-      return sizes.array(view, offset, custom_type_CustomType.size);
+      return builtinSizes.array(view, offset, custom_type_CustomType.size);
     }
 
     // return the total serialized size of the message in the view
@@ -274,15 +290,19 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        custom: this.custom.map((item) => item.toJSON()),
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // custom_type/CustomType[] custom
     get custom() {
       const offset = this.custom_offset(this.#view, this.#offset);
-      return readers.dynamicArray(
+      return deserializers.dynamicArray(
         this.#view,
         offset,
         custom_type_CustomType.build,
@@ -302,7 +322,7 @@ exports[`LazyReader should deserialize CustomType[] custom
     ============
     MSG: custom_type/CustomType
     uint8 first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class custom_type_CustomType {
     static first_size(view /* dataview */, offset) {
       return 1;
@@ -342,20 +362,24 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
   }
 
   class __RootMsg {
     static custom_size(view /* dataview */, offset) {
-      return sizes.array(view, offset, custom_type_CustomType.size);
+      return builtinSizes.array(view, offset, custom_type_CustomType.size);
     }
 
     // return the total serialized size of the message in the view
@@ -395,15 +419,19 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        custom: this.custom.map((item) => item.toJSON()),
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // custom_type/CustomType[] custom
     get custom() {
       const offset = this.custom_offset(this.#view, this.#offset);
-      return readers.dynamicArray(
+      return deserializers.dynamicArray(
         this.#view,
         offset,
         custom_type_CustomType.build,
@@ -423,7 +451,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
     ============
     MSG: custom_type/CustomType
     uint8 first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class custom_type_CustomType {
     static first_size(view /* dataview */, offset) {
       return 1;
@@ -463,20 +491,29 @@ exports[`LazyReader should deserialize CustomType[3] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
   }
 
   class __RootMsg {
     static custom_size(view /* dataview */, offset) {
-      return sizes.fixedArray(view, offset, 3, custom_type_CustomType.size);
+      return builtinSizes.fixedArray(
+        view,
+        offset,
+        3,
+        custom_type_CustomType.size
+      );
     }
 
     // return the total serialized size of the message in the view
@@ -516,15 +553,19 @@ exports[`LazyReader should deserialize CustomType[3] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        custom: this.custom.map((item) => item.toJSON()),
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // custom_type/CustomType[3] custom
     get custom() {
       const offset = this.custom_offset(this.#view, this.#offset);
-      return readers.fixedArray(
+      return deserializers.fixedArray(
         this.#view,
         offset,
         3,
@@ -539,7 +580,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
 `;
 
 exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static stamp_size(view /* dataview */, offset) {
       return 8;
@@ -579,14 +620,18 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        stamp: this.stamp,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get stamp() {
       const offset = this.stamp_offset(this.#view, this.#offset);
-      return readers.duration(this.#view, offset);
+      return deserializers.duration(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -595,7 +640,7 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
 `;
 
 exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
@@ -639,16 +684,20 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // duration[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.durationArray(this.#view, offset + 4, len);
+      return deserializers.durationArray(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -657,7 +706,7 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
 `;
 
 exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       return 8 * 1;
@@ -697,15 +746,19 @@ exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // duration[1] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
-      return readers.durationArray(this.#view, offset, 1);
+      return deserializers.durationArray(this.#view, offset, 1);
     }
   }
   return __RootMsg;
@@ -714,7 +767,7 @@ exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
 `;
 
 exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 4;
@@ -754,14 +807,18 @@ exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.float32(this.#view, offset);
+      return deserializers.float32(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -770,7 +827,7 @@ exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
 `;
 
 exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
@@ -814,16 +871,20 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // float32[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.float32Array(this.#view, offset + 4, len);
+      return deserializers.float32Array(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -834,7 +895,7 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
 exports[`LazyReader should deserialize float32[] first
 float32[] second: float32[] first
 float32[] second 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
@@ -901,24 +962,27 @@ float32[] second 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-        second: this.second,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // float32[] first
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.float32Array(this.#view, offset + 4, len);
+      return deserializers.float32Array(this.#view, offset + 4, len);
     }
 
     // float32[] second
     get second() {
       const offset = this.second_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.float32Array(this.#view, offset + 4, len);
+      return deserializers.float32Array(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -927,7 +991,7 @@ float32[] second 1`] = `
 `;
 
 exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       return 4 * 2;
@@ -967,15 +1031,19 @@ exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // float32[2] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
-      return readers.float32Array(this.#view, offset, 2);
+      return deserializers.float32Array(this.#view, offset, 2);
     }
   }
   return __RootMsg;
@@ -984,7 +1052,7 @@ exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
 `;
 
 exports[`LazyReader should deserialize float64 sample: float64 sample 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 8;
@@ -1024,14 +1092,18 @@ exports[`LazyReader should deserialize float64 sample: float64 sample 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.float64(this.#view, offset);
+      return deserializers.float64(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1044,7 +1116,7 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
        int8 status: int8 STATUS_ONE = 1
        int8 STATUS_TWO = 2
        int8 status 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static status_size(view /* dataview */, offset) {
       return 1;
@@ -1084,14 +1156,18 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        status: this.status,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get status() {
       const offset = this.status_offset(this.#view, this.#offset);
-      return readers.int8(this.#view, offset);
+      return deserializers.int8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1102,7 +1178,7 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
 exports[`LazyReader should deserialize int8 first
 int8 second: int8 first
 int8 second 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
       return 1;
@@ -1161,19 +1237,22 @@ int8 second 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-        second: this.second,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.int8(this.#view, offset);
+      return deserializers.int8(this.#view, offset);
     }
     get second() {
       const offset = this.second_offset(this.#view, this.#offset);
-      return readers.int8(this.#view, offset);
+      return deserializers.int8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1182,7 +1261,7 @@ int8 second 1`] = `
 `;
 
 exports[`LazyReader should deserialize int8 sample # highest: int8 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 1;
@@ -1222,14 +1301,18 @@ exports[`LazyReader should deserialize int8 sample # highest: int8 sample # high
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int8(this.#view, offset);
+      return deserializers.int8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1238,7 +1321,7 @@ exports[`LazyReader should deserialize int8 sample # highest: int8 sample # high
 `;
 
 exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 1;
@@ -1278,14 +1361,18 @@ exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowes
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int8(this.#view, offset);
+      return deserializers.int8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1294,7 +1381,7 @@ exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowes
 `;
 
 exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
@@ -1338,16 +1425,20 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // int8[] first
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.int8Array(this.#view, offset + 4, len);
+      return deserializers.int8Array(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -1356,7 +1447,7 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
 `;
 
 exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
       return 1 * 4;
@@ -1396,15 +1487,19 @@ exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // int8[4] first
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.int8Array(this.#view, offset, 4);
+      return deserializers.int8Array(this.#view, offset, 4);
     }
   }
   return __RootMsg;
@@ -1413,7 +1508,7 @@ exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
 `;
 
 exports[`LazyReader should deserialize int16 sample # highest: int16 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 2;
@@ -1453,14 +1548,18 @@ exports[`LazyReader should deserialize int16 sample # highest: int16 sample # hi
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int16(this.#view, offset);
+      return deserializers.int16(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1469,7 +1568,7 @@ exports[`LazyReader should deserialize int16 sample # highest: int16 sample # hi
 `;
 
 exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 2;
@@ -1509,14 +1608,18 @@ exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int16(this.#view, offset);
+      return deserializers.int16(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1525,7 +1628,7 @@ exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # low
 `;
 
 exports[`LazyReader should deserialize int32 sample # highest: int32 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 4;
@@ -1565,14 +1668,18 @@ exports[`LazyReader should deserialize int32 sample # highest: int32 sample # hi
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int32(this.#view, offset);
+      return deserializers.int32(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1581,7 +1688,7 @@ exports[`LazyReader should deserialize int32 sample # highest: int32 sample # hi
 `;
 
 exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 4;
@@ -1621,14 +1728,18 @@ exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int32(this.#view, offset);
+      return deserializers.int32(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1637,7 +1748,7 @@ exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # low
 `;
 
 exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
@@ -1681,16 +1792,20 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // int32[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.int32Array(this.#view, offset + 4, len);
+      return deserializers.int32Array(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -1699,7 +1814,7 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
 `;
 
 exports[`LazyReader should deserialize int64 sample # highest: int64 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 8;
@@ -1739,14 +1854,18 @@ exports[`LazyReader should deserialize int64 sample # highest: int64 sample # hi
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int64(this.#view, offset);
+      return deserializers.int64(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1755,7 +1874,7 @@ exports[`LazyReader should deserialize int64 sample # highest: int64 sample # hi
 `;
 
 exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 8;
@@ -1795,14 +1914,18 @@ exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.int64(this.#view, offset);
+      return deserializers.int64(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1813,10 +1936,10 @@ exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # low
 exports[`LazyReader should deserialize string first
 int8 second: string first
 int8 second 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
-      return sizes.string(view, offset);
+      return builtinSizes.string(view, offset);
     }
 
     static second_size(view /* dataview */, offset) {
@@ -1875,19 +1998,22 @@ int8 second 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-        second: this.second,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.string(this.#view, offset);
+      return deserializers.string(this.#view, offset);
     }
     get second() {
       const offset = this.second_offset(this.#view, this.#offset);
-      return readers.int8(this.#view, offset);
+      return deserializers.int8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1896,10 +2022,10 @@ int8 second 1`] = `
 `;
 
 exports[`LazyReader should deserialize string sample # empty string: string sample # empty string 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
-      return sizes.string(view, offset);
+      return builtinSizes.string(view, offset);
     }
 
     // return the total serialized size of the message in the view
@@ -1939,14 +2065,18 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.string(this.#view, offset);
+      return deserializers.string(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -1955,10 +2085,10 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
 `;
 
 exports[`LazyReader should deserialize string sample # some string: string sample # some string 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
-      return sizes.string(view, offset);
+      return builtinSizes.string(view, offset);
     }
 
     // return the total serialized size of the message in the view
@@ -1998,14 +2128,18 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.string(this.#view, offset);
+      return deserializers.string(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -2014,10 +2148,10 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
 `;
 
 exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
-      return sizes.array(view, offset, sizes.string);
+      return builtinSizes.array(view, offset, builtinSizes.string);
     }
 
     // return the total serialized size of the message in the view
@@ -2057,19 +2191,23 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // string[] first
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.dynamicArray(
+      return deserializers.dynamicArray(
         this.#view,
         offset,
-        readers.string,
-        sizes.string
+        deserializers.string,
+        builtinSizes.string
       );
     }
   }
@@ -2079,10 +2217,10 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
 `;
 
 exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
-      return sizes.fixedArray(view, offset, 2, sizes.string);
+      return builtinSizes.fixedArray(view, offset, 2, builtinSizes.string);
     }
 
     // return the total serialized size of the message in the view
@@ -2122,20 +2260,24 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // string[2] first
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.fixedArray(
+      return deserializers.fixedArray(
         this.#view,
         offset,
         2,
-        readers.string,
-        sizes.string
+        deserializers.string,
+        builtinSizes.string
       );
     }
   }
@@ -2145,7 +2287,7 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
 `;
 
 exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static stamp_size(view /* dataview */, offset) {
       return 8;
@@ -2185,14 +2327,18 @@ exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        stamp: this.stamp,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get stamp() {
       const offset = this.stamp_offset(this.#view, this.#offset);
-      return readers.time(this.#view, offset);
+      return deserializers.time(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -2201,7 +2347,7 @@ exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
 `;
 
 exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
@@ -2245,16 +2391,20 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // time[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.timeArray(this.#view, offset + 4, len);
+      return deserializers.timeArray(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -2263,7 +2413,7 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
 `;
 
 exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static arr_size(view /* dataview */, offset) {
       return 8 * 1;
@@ -2303,15 +2453,19 @@ exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // time[1] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
-      return readers.timeArray(this.#view, offset, 1);
+      return deserializers.timeArray(this.#view, offset, 1);
     }
   }
   return __RootMsg;
@@ -2322,7 +2476,7 @@ exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
 exports[`LazyReader should deserialize uint8 blank
 float32[] arr: uint8 blank
 float32[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static blank_size(view /* dataview */, offset) {
       return 1;
@@ -2385,22 +2539,25 @@ float32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        blank: this.blank,
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get blank() {
       const offset = this.blank_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
 
     // float32[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.float32Array(this.#view, offset + 4, len);
+      return deserializers.float32Array(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -2411,7 +2568,7 @@ float32[] arr 1`] = `
 exports[`LazyReader should deserialize uint8 blank
 float32[2] arr: uint8 blank
 float32[2] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static blank_size(view /* dataview */, offset) {
       return 1;
@@ -2470,21 +2627,24 @@ float32[2] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        blank: this.blank,
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get blank() {
       const offset = this.blank_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
 
     // float32[2] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
-      return readers.float32Array(this.#view, offset, 2);
+      return deserializers.float32Array(this.#view, offset, 2);
     }
   }
   return __RootMsg;
@@ -2495,7 +2655,7 @@ float32[2] arr 1`] = `
 exports[`LazyReader should deserialize uint8 blank
 int32[] arr: uint8 blank
 int32[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static blank_size(view /* dataview */, offset) {
       return 1;
@@ -2558,22 +2718,25 @@ int32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        blank: this.blank,
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get blank() {
       const offset = this.blank_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
 
     // int32[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.int32Array(this.#view, offset + 4, len);
+      return deserializers.int32Array(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -2584,7 +2747,7 @@ int32[] arr 1`] = `
 exports[`LazyReader should deserialize uint8 blank
 time[] arr: uint8 blank
 time[] arr 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static blank_size(view /* dataview */, offset) {
       return 1;
@@ -2647,22 +2810,25 @@ time[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        blank: this.blank,
-        arr: this.arr,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get blank() {
       const offset = this.blank_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
 
     // time[] arr
     get arr() {
       const offset = this.arr_offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
-      return readers.timeArray(this.#view, offset + 4, len);
+      return deserializers.timeArray(this.#view, offset + 4, len);
     }
   }
   return __RootMsg;
@@ -2671,7 +2837,7 @@ time[] arr 1`] = `
 `;
 
 exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 1;
@@ -2711,14 +2877,18 @@ exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # hi
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -2727,7 +2897,7 @@ exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # hi
 `;
 
 exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 1;
@@ -2767,14 +2937,18 @@ exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint8(this.#view, offset);
+      return deserializers.uint8(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -2783,7 +2957,7 @@ exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # low
 `;
 
 exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static first_size(view /* dataview */, offset) {
       return 1 * 4;
@@ -2823,15 +2997,19 @@ exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        first: this.first,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     // uint8[4] first
     get first() {
       const offset = this.first_offset(this.#view, this.#offset);
-      return readers.uint8Array(this.#view, offset, 4);
+      return deserializers.uint8Array(this.#view, offset, 4);
     }
   }
   return __RootMsg;
@@ -2840,7 +3018,7 @@ exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
 `;
 
 exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 2;
@@ -2880,14 +3058,18 @@ exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # 
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint16(this.#view, offset);
+      return deserializers.uint16(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -2896,7 +3078,7 @@ exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # 
 `;
 
 exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 2;
@@ -2936,14 +3118,18 @@ exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # l
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint16(this.#view, offset);
+      return deserializers.uint16(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -2952,7 +3138,7 @@ exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # l
 `;
 
 exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 4;
@@ -2992,14 +3178,18 @@ exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # 
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint32(this.#view, offset);
+      return deserializers.uint32(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -3008,7 +3198,7 @@ exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # 
 `;
 
 exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 4;
@@ -3048,14 +3238,18 @@ exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # l
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint32(this.#view, offset);
+      return deserializers.uint32(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -3064,7 +3258,7 @@ exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # l
 `;
 
 exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # highest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 8;
@@ -3104,14 +3298,18 @@ exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # 
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint64(this.#view, offset);
+      return deserializers.uint64(this.#view, offset);
     }
   }
   return __RootMsg;
@@ -3120,7 +3318,7 @@ exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # 
 `;
 
 exports[`LazyReader should deserialize uint64 sample # lowest: uint64 sample # lowest 1`] = `
-"function anonymous(readers, sizes) {
+"function anonymous(deserializers, builtinSizes, fullReader) {
   class __RootMsg {
     static sample_size(view /* dataview */, offset) {
       return 8;
@@ -3160,14 +3358,18 @@ exports[`LazyReader should deserialize uint64 sample # lowest: uint64 sample # l
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
-      return {
-        sample: this.sample,
-      };
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset,
+        view.byteLength
+      );
+      return fullReader.readMessage(buffer);
     }
 
     get sample() {
       const offset = this.sample_offset(this.#view, this.#offset);
-      return readers.uint64(this.#view, offset);
+      return deserializers.uint64(this.#view, offset);
     }
   }
   return __RootMsg;

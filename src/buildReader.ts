@@ -1,5 +1,6 @@
 import { RosMsgDefinition, RosMsgField } from "@foxglove/rosmsg";
 
+import { MessageReader } from ".";
 import { deserializers, fixedSizeTypes, FixedSizeTypes } from "./BuiltinDeserialize";
 
 const builtinSizes = {
@@ -80,18 +81,18 @@ function sizeFunction(field: RosMsgField): string {
   if (fieldSize == undefined) {
     // the size function for the field to use in calculating the size on-demand
     const fieldSizeFn =
-      field.type === "string" ? "sizes.string" : `${sanitizeName(field.type)}.size`;
+      field.type === "string" ? "builtinSizes.string" : `${sanitizeName(field.type)}.size`;
 
     if (field.isArray === true) {
       if (field.arrayLength != undefined) {
         return `
           static ${field.name}_size(view /* dataview */, offset) {
-              return sizes.fixedArray(view, offset, ${field.arrayLength}, ${fieldSizeFn});
+              return builtinSizes.fixedArray(view, offset, ${field.arrayLength}, ${fieldSizeFn});
           }`;
       } else {
         return `
           static ${field.name}_size(view /* dataview */, offset) {
-              return sizes.array(view, offset, ${fieldSizeFn});
+              return builtinSizes.array(view, offset, ${fieldSizeFn});
           }`;
       }
     }
@@ -169,10 +170,12 @@ function getterFunction(field: RosMsgField): string {
   const isBuiltinSize = field.type in builtinSizes;
 
   // function to return a read array item
-  const readerFn = isBuiltinReader ? `readers.${field.type}` : `${sanitizeName(field.type)}.build`;
+  const readerFn = isBuiltinReader
+    ? `deserializers.${field.type}`
+    : `${sanitizeName(field.type)}.build`;
 
   // function to return size of individual array item
-  const sizeFn = isBuiltinSize ? `sizes.${field.type}` : `${sanitizeName(field.type)}.size`;
+  const sizeFn = isBuiltinSize ? `builtinSizes.${field.type}` : `${sanitizeName(field.type)}.size`;
 
   const fieldSize = fixedSizeTypes.get(field.type as FixedSizeTypes);
 
@@ -185,7 +188,7 @@ function getterFunction(field: RosMsgField): string {
           // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
             const offset = this.${field.name}_offset(this.#view, this.#offset);
-            return readers.${field.type}Array(this.#view, offset, ${arrLen});
+            return deserializers.${field.type}Array(this.#view, offset, ${arrLen});
           }`;
       } else {
         // fixed size array of complex size items
@@ -193,7 +196,7 @@ function getterFunction(field: RosMsgField): string {
         // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
             const offset = this.${field.name}_offset(this.#view, this.#offset);
-            return readers.fixedArray(this.#view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
+            return deserializers.fixedArray(this.#view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
           }`;
       }
     } else {
@@ -204,14 +207,14 @@ function getterFunction(field: RosMsgField): string {
           get ${field.name}() {
             const offset = this.${field.name}_offset(this.#view, this.#offset);
             const len = this.#view.getUint32(offset, true);
-            return readers.${field.type}Array(this.#view, offset + 4, len);
+            return deserializers.${field.type}Array(this.#view, offset + 4, len);
           }`;
       } else {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
             const offset = this.${field.name}_offset(this.#view, this.#offset);
-            return readers.dynamicArray(this.#view, offset, ${readerFn}, ${sizeFn});
+            return deserializers.dynamicArray(this.#view, offset, ${readerFn}, ${sizeFn});
           }`;
       }
     }
@@ -323,9 +326,9 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
         // This fully deserializes all fields of the message into native types
         // Typed arrays are considered native types and remain as typed arrays
         toJSON() {
-          return {
-            ${fields.join(",\n")}
-          };
+          const view = this.#view;
+          const buffer = new Uint8Array(view.buffer, view.byteOffset, view.byteLength);
+          return fullReader.readMessage(buffer);
         }
 
         ${type.definitions.map(getterFunction).join("\n")}
@@ -338,10 +341,22 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
   // Since the root message depends on custom types we want those to be defined
   const src = classes.reverse().join("\n\n");
 
+  const fullReader = new MessageReader(types);
+
   // close over our builtin deserializers and builtin size functions
   // eslint-disable-next-line @typescript-eslint/no-implied-eval,no-new-func
-  const wrapFn = new Function("readers", "sizes", `${src}\nreturn __RootMsg;`);
-  const rootMsg = wrapFn.call(undefined, deserializers, builtinSizes) as SerializedMessageReader;
+  const wrapFn = new Function(
+    "deserializers",
+    "builtinSizes",
+    "fullReader",
+    `${src}\nreturn __RootMsg;`,
+  );
+  const rootMsg = wrapFn.call(
+    undefined,
+    deserializers,
+    builtinSizes,
+    fullReader,
+  ) as SerializedMessageReader;
   rootMsg.source = () => wrapFn.toString();
   return rootMsg;
 }
