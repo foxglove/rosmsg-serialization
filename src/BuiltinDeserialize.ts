@@ -127,6 +127,8 @@ type BuiltinReaders = {
   ) => K extends keyof BuiltinArrayTypeMap ? BuiltinArrayTypeMap[K] : BuiltinTypeMap[K][];
 };
 
+const decoder = new TextDecoder("utf8");
+
 export const deserializers: BuiltinReaders & {
   string: (view: DataView, offset: number) => string;
   fixedArray: (
@@ -168,7 +170,12 @@ export const deserializers: BuiltinReaders & {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
     const codePoints = new Uint8Array(view.buffer, totalOffset, len);
-    const decoder = new TextDecoder("utf8");
+
+    // For short strings, using fromCharCode is faster then decoder (according to benchmarks)
+    if (codePoints.length <= 40) {
+      return String.fromCharCode.apply(null, codePoints as unknown as number[]);
+    }
+
     return decoder.decode(codePoints);
   },
   boolArray: (view, offset, len) => {
