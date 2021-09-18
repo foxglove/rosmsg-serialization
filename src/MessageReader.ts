@@ -191,7 +191,7 @@ class StandardTypeReader {
   }
 }
 
-const findTypeByName = (types: RosMsgDefinition[], name = ""): NamedRosMsgDefinition => {
+const findTypeByName = (types: readonly RosMsgDefinition[], name = ""): NamedRosMsgDefinition => {
   let foundName = ""; // track name separately in a non-null variable to appease Flow
   const matches = types.filter((type) => {
     const typeName = type.name ?? "";
@@ -247,7 +247,7 @@ function toTypedArrayType(rosType: string): string | undefined {
   }
 }
 
-const createParser = (types: RosMsgDefinition[], freeze: boolean) => {
+const createParser = (types: readonly RosMsgDefinition[], options: { freeze?: boolean }) => {
   if (types.length === 0) {
     throw new Error(`no types given`);
   }
@@ -313,7 +313,7 @@ const createParser = (types: RosMsgDefinition[], freeze: boolean) => {
         readerLines.push(`this.${def.name} = reader.${def.type}();`);
       }
     });
-    if (freeze) {
+    if (options.freeze === true) {
       readerLines.push("Object.freeze(this);");
     }
     return readerLines.join("\n    ");
@@ -351,8 +351,8 @@ export class MessageReader {
   // takes an object message definition and returns
   // a message reader which can be used to read messages based
   // on the message definition
-  constructor(definitions: RosMsgDefinition[], options: { freeze?: boolean } = {}) {
-    this.reader = createParser(definitions, options.freeze === true);
+  constructor(definitions: readonly RosMsgDefinition[], options: { freeze?: boolean } = {}) {
+    this.reader = createParser(definitions, options);
   }
 
   readMessage<T = unknown>(buffer: Readonly<Uint8Array>): T {

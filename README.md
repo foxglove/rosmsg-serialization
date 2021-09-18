@@ -82,6 +82,7 @@ The `bench` folder contains benchmarks. Run with:
 
 ```
 yarn bench
+yarn bench:benny
 ```
 
 ## Stay in touch

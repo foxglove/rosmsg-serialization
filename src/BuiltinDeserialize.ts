@@ -119,14 +119,13 @@ type BuiltinTypes = keyof BuiltinTypeMap & FixedSizeTypes;
 
 type BuiltinReaders = {
   [K in BuiltinTypes]: (view: DataView, offset: number) => BuiltinTypeMap[K];
-} &
-  {
-    [K in BuiltinTypes as `${K}Array`]: (
-      view: DataView,
-      offset: number,
-      len: number,
-    ) => K extends keyof BuiltinArrayTypeMap ? BuiltinArrayTypeMap[K] : BuiltinTypeMap[K][];
-  };
+} & {
+  [K in BuiltinTypes as `${K}Array`]: (
+    view: DataView,
+    offset: number,
+    len: number,
+  ) => K extends keyof BuiltinArrayTypeMap ? BuiltinArrayTypeMap[K] : BuiltinTypeMap[K][];
+};
 
 export const deserializers: BuiltinReaders & {
   string: (view: DataView, offset: number) => string;
