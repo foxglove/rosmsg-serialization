@@ -23,10 +23,23 @@ jobs:
       - run: yarn build
       - run: yarn lint:ci
       - run: yarn test
-      - run: yarn bench:benny
 
       - name: Publish to NPM
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+  bench:
+    name: bench
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          registry-url: https://registry.npmjs.org
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn bench:benny
