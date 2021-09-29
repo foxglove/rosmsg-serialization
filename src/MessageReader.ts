@@ -31,16 +31,14 @@ interface TypedArrayConstructor {
 // of the standard message types http://docs.ros.org/api/std_msgs/html/index-msg.html
 // eventually custom types decompose into these standard types
 class StandardTypeReader {
-  buffer: Uint8Array;
   offset: number;
   view: DataView;
   _decoder?: TextDecoder;
   _decoderStatus: "NOT_INITIALIZED" | "INITIALIZED" | "NOT_AVAILABLE" = "NOT_INITIALIZED";
 
-  constructor(buffer: Readonly<Uint8Array>) {
-    this.buffer = buffer;
+  constructor(buffer: ArrayBufferView) {
     this.offset = 0;
-    this.view = new DataView(buffer.buffer, buffer.byteOffset);
+    this.view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
   }
 
   _intializeTextDecoder() {
@@ -69,12 +67,12 @@ class StandardTypeReader {
 
   string() {
     const len = this.int32();
-    const totalOffset = this.buffer.byteOffset + this.offset;
-    const maxLen = this.buffer.byteLength - this.offset;
+    const totalOffset = this.view.byteOffset + this.offset;
+    const maxLen = this.view.byteLength - this.offset;
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
-    const codePoints = new Uint8Array(this.buffer.buffer, totalOffset, len);
+    const codePoints = new Uint8Array(this.view.buffer, totalOffset, len);
     this.offset += len;
 
     // if the string is relatively short we can use apply, but longer strings can benefit from the speed of TextDecoder.
@@ -339,14 +337,14 @@ const createParser = (types: readonly RosMsgDefinition[], options: { freeze?: bo
   // eslint-disable-next-line no-eval, @typescript-eslint/no-unsafe-assignment
   const read: <T>(reader: StandardTypeReader) => T = eval(`(function buildReader() { ${js} })()`);
 
-  return function <T>(buffer: Readonly<Uint8Array>): T {
+  return function <T>(buffer: ArrayBufferView): T {
     const reader = new StandardTypeReader(buffer);
     return read<T>(reader);
   };
 };
 
 export class MessageReader {
-  reader: <T = unknown>(buffer: Readonly<Uint8Array>) => T;
+  reader: <T = unknown>(buffer: ArrayBufferView) => T;
 
   // takes an object message definition and returns
   // a message reader which can be used to read messages based
@@ -355,7 +353,7 @@ export class MessageReader {
     this.reader = createParser(definitions, options);
   }
 
-  readMessage<T = unknown>(buffer: Readonly<Uint8Array>): T {
+  readMessage<T = unknown>(buffer: ArrayBufferView): T {
     return this.reader<T>(buffer);
   }
 }
