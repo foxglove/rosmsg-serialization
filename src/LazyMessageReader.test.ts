@@ -68,4 +68,43 @@ describe("LazyReader", () => {
       }
     },
   );
+
+  it("should support toJSON for individual array fields", () => {
+    const msgDef = `CustomType[3] custom
+    ============
+    MSG: custom_type/CustomType
+    uint8 first`;
+
+    const arr = [0x02, 0x03, 0x04];
+
+    const buffer = Uint8Array.from(arr);
+    const reader = new LazyMessageReader<{ custom: { toJSON: () => unknown }[] }>(
+      parseMessageDefinition(msgDef),
+    );
+
+    const read = reader.readMessage(buffer);
+    expect(read.custom[0]?.toJSON()).toEqual({ first: 2 });
+    expect(read.custom[1]?.toJSON()).toEqual({ first: 3 });
+    expect(read.custom[2]?.toJSON()).toEqual({ first: 4 });
+  });
+
+  it("should support toJSON for individual fields", () => {
+    const msgDef = `CustomType custom1
+    CustomType custom2
+    ============
+    MSG: custom_type/CustomType
+    uint8 first`;
+
+    const arr = [0x03, 0x07];
+
+    const buffer = Uint8Array.from(arr);
+    const reader = new LazyMessageReader<{
+      custom1: { toJSON: () => unknown };
+      custom2: { toJSON: () => unknown };
+    }>(parseMessageDefinition(msgDef));
+
+    const read = reader.readMessage(buffer);
+    expect(read.custom1.toJSON()).toEqual({ first: 3 });
+    expect(read.custom2.toJSON()).toEqual({ first: 7 });
+  });
 });

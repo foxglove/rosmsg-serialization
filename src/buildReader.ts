@@ -327,8 +327,9 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
         // Typed arrays are considered native types and remain as typed arrays
         toJSON() {
           const view = this.#view;
-          const buffer = new Uint8Array(view.buffer, view.byteOffset, view.byteLength);
-          return fullReader.readMessage(buffer);
+          const buffer = new Uint8Array(view.buffer, view.byteOffset + this.#offset, view.byteLength - this.#offset);
+
+          return typeReaders.get("${name}").readMessage(buffer);
         }
 
         ${type.definitions.map(getterFunction).join("\n")}
@@ -341,21 +342,28 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
   // Since the root message depends on custom types we want those to be defined
   const src = classes.reverse().join("\n\n");
 
-  const fullReader = new MessageReader(types);
+  const typeReaders = new Map<string, MessageReader>();
+
+  for (let idx = 0; idx <= types.length - 1; ++idx) {
+    const remainingTypes = types.slice(idx);
+    const typeName = sanitizeName(remainingTypes[0]?.name ?? "__RootMsg");
+    const typeReader = new MessageReader(remainingTypes);
+    typeReaders.set(typeName, typeReader);
+  }
 
   // close over our builtin deserializers and builtin size functions
   // eslint-disable-next-line @typescript-eslint/no-implied-eval,no-new-func
   const wrapFn = new Function(
     "deserializers",
     "builtinSizes",
-    "fullReader",
+    "typeReaders",
     `${src}\nreturn __RootMsg;`,
   );
   const rootMsg = wrapFn.call(
     undefined,
     deserializers,
     builtinSizes,
-    fullReader,
+    typeReaders,
   ) as SerializedMessageReader;
   rootMsg.source = () => wrapFn.toString();
   return rootMsg;
