@@ -1,6 +1,6 @@
 import { RosMsgDefinition, RosMsgField } from "@foxglove/rosmsg";
 
-import { MessageReader } from ".";
+import { createParsers, StandardTypeReader } from ".";
 import { deserializers, fixedSizeTypes, FixedSizeTypes } from "./BuiltinDeserialize";
 
 const builtinSizes = {
@@ -235,11 +235,14 @@ function getterFunction(field: RosMsgField): string {
 // The size functions calculate the size of fields within arrays.
 // The offset methods calculate the start byte of the field within the entire message buffer.
 // The getter de-serializes the field from the message buffer.
-export default function buildReader(types: readonly RosMsgDefinition[]): SerializedMessageReader {
+export default function buildReader(
+  definitions: readonly RosMsgDefinition[],
+): SerializedMessageReader {
   const classes = new Array<string>();
+  const rootClassName = "__RootMsg";
 
-  for (const type of types) {
-    const name = sanitizeName(type.name ?? "__RootMsg");
+  for (const type of definitions) {
+    const name = sanitizeName(type.name ?? rootClassName);
 
     const offsetFns = new Array<string>();
     const fields = new Array<string>();
@@ -328,8 +331,8 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
         toJSON() {
           const view = this.#view;
           const buffer = new Uint8Array(view.buffer, view.byteOffset + this.#offset, view.byteLength - this.#offset);
-
-          return typeReaders.get("${name}").readMessage(buffer);
+          const reader = new StandardTypeReader(buffer);
+          return new (typeReaders.get(${JSON.stringify(type.name ?? rootClassName)}))(reader);
         }
 
         ${type.definitions.map(getterFunction).join("\n")}
@@ -342,14 +345,7 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
   // Since the root message depends on custom types we want those to be defined
   const src = classes.reverse().join("\n\n");
 
-  const typeReaders = new Map<string, MessageReader>();
-
-  for (let idx = 0; idx <= types.length - 1; ++idx) {
-    const remainingTypes = types.slice(idx);
-    const typeName = sanitizeName(remainingTypes[0]?.name ?? "__RootMsg");
-    const typeReader = new MessageReader(remainingTypes);
-    typeReaders.set(typeName, typeReader);
-  }
+  const typeReaders = createParsers({ definitions, topLevelReaderKey: rootClassName });
 
   // close over our builtin deserializers and builtin size functions
   // eslint-disable-next-line @typescript-eslint/no-implied-eval,no-new-func
@@ -357,6 +353,7 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
     "deserializers",
     "builtinSizes",
     "typeReaders",
+    "StandardTypeReader",
     `${src}\nreturn __RootMsg;`,
   );
   const rootMsg = wrapFn.call(
@@ -364,6 +361,7 @@ export default function buildReader(types: readonly RosMsgDefinition[]): Seriali
     deserializers,
     builtinSizes,
     typeReaders,
+    StandardTypeReader,
   ) as SerializedMessageReader;
   rootMsg.source = () => wrapFn.toString();
   return rootMsg;
