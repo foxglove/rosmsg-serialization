@@ -40,7 +40,7 @@ export class StandardTypeReader {
   constructor(buffer: ArrayBufferView) {
     this.buffer = buffer;
     this.offset = 0;
-    this.view = new DataView(buffer.buffer, buffer.byteOffset);
+    this.view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
   }
 
   private _intializeTextDecoder() {
@@ -69,12 +69,12 @@ export class StandardTypeReader {
 
   string(): string {
     const len = this.int32();
-    const totalOffset = this.buffer.byteOffset + this.offset;
-    const maxLen = this.buffer.byteLength - this.offset;
+    const totalOffset = this.view.byteOffset + this.offset;
+    const maxLen = this.view.byteLength - this.offset;
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
-    const codePoints = new Uint8Array(this.buffer.buffer, totalOffset, len);
+    const codePoints = new Uint8Array(this.view.buffer, totalOffset, len);
     this.offset += len;
 
     // if the string is relatively short we can use apply, but longer strings can benefit from the speed of TextDecoder.
