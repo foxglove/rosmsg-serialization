@@ -54,7 +54,7 @@
     "@types/jest": "^27.0.1",
     "@types/node": "^16.9.2",
     "@types/prettier": "2.3.2",
-    "@typescript-eslint/eslint-plugin": "4.31.1",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.31.1",
     "benny": "3.7.0",
     "console-table-printer": "2.10.0",
