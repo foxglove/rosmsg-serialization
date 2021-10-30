@@ -382,10 +382,10 @@
   resolved "https://registry.yarnpkg.com/@foxglove/eslint-plugin/-/eslint-plugin-0.17.1.tgz#f29fbe7bf538f2721535a9c06ec6ec607ad72f71"
   integrity sha512-/Z32WFj7bBfEIdCh0aXTc5mQbVUcm1KvG586FxCq8k0r0oBUml0bAtLIem9IjE7sUWtabSDJWTFLJpHJhlP+XA==
 
-"@foxglove/rosmsg@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@foxglove/rosmsg/-/rosmsg-2.0.0.tgz#0ae51f4408580bb25cea8e4796aebc4011f61594"
-  integrity sha512-G5PqgF9kDBayLKYBpL3stKvuiiHf5nxH0IT5XNkOC7kaTMGuhfxYxncWlgfc3bFdpvwc6NWioaJyRkQ2AG7Maw==
+"@foxglove/rosmsg@^2.0.0 || ^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@foxglove/rosmsg/-/rosmsg-3.0.0.tgz#10ce39e42dab6804977cda297d0d317649184a16"
+  integrity sha512-AAb3DMlLcuntUyEDBioDhbjdbKivC1hj7Gnu7QXX8ce+R50V8xs5sfxccsjE6N0Qs+eQxuzLhT2kW3mNXT/gbg==
   dependencies:
     md5-typescript "^1.0.5"
 
