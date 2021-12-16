@@ -77,8 +77,8 @@ async function makeSuite(testCase: Testcase): Promise<void> {
 
     benny.add("Lazy", () => {
       const messageReader = new LazyMessageReader(messageDefinition);
-      const msg = messageReader.readMessage(msgData);
       return () => {
+        const msg = messageReader.readMessage(msgData);
         lastField(msg);
       };
     }),

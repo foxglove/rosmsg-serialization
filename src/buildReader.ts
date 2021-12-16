@@ -187,16 +187,16 @@ function getterFunction(field: RosMsgField): string {
         return `
           // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
-            return deserializers.${field.type}Array(this.#view, offset, ${arrLen});
+            const offset = this.${field.name}_offset(this._view, this._offset);
+            return deserializers.${field.type}Array(this._view, offset, ${arrLen});
           }`;
       } else {
         // fixed size array of complex size items
         return `
         // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
-            return deserializers.fixedArray(this.#view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
+            const offset = this.${field.name}_offset(this._view, this._offset);
+            return deserializers.fixedArray(this._view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
           }`;
       }
     } else {
@@ -205,23 +205,23 @@ function getterFunction(field: RosMsgField): string {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
-            const len = this.#view.getUint32(offset, true);
-            return deserializers.${field.type}Array(this.#view, offset + 4, len);
+            const offset = this.${field.name}_offset(this._view, this._offset);
+            const len = this._view.getUint32(offset, true);
+            return deserializers.${field.type}Array(this._view, offset + 4, len);
           }`;
       } else {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
-            return deserializers.dynamicArray(this.#view, offset, ${readerFn}, ${sizeFn});
+            const offset = this.${field.name}_offset(this._view, this._offset);
+            return deserializers.dynamicArray(this._view, offset, ${readerFn}, ${sizeFn});
           }`;
       }
     }
   } else {
     return `get ${field.name}() {
-        const offset = this.${field.name}_offset(this.#view, this.#offset);
-        return ${readerFn}(this.#view, offset);
+        const offset = this.${field.name}_offset(this._view, this._offset);
+        return ${readerFn}(this._view, offset);
       }`;
   }
 }
@@ -245,7 +245,7 @@ export default function buildReader(
     const name = sanitizeName(type.name ?? rootClassName);
 
     const offsetFns = new Array<string>();
-    const fields = new Array<string>();
+    const initializers = new Array<string>();
 
     // getters need to "look back" at the previous field to create the offset function calls
     let prevField: RosMsgField | undefined;
@@ -267,30 +267,17 @@ export default function buildReader(
       } else {
         // offsets tell you where the raw data of your field starts (including any length bytes)
         // they are the size of the offset of the previous field + size of previous field
-        // use # to keep the property private (non-enumerable)
+        initializers.push(`this._${field.name}_offset_cache = undefined;`);
         offsetFns.push(`
-          #_${field.name}_offset_cache = undefined;
           ${field.name}_offset(view, initOffset) {
-            if (this.#_${field.name}_offset_cache) {
-              return this.#_${field.name}_offset_cache;
+            if (this._${field.name}_offset_cache) {
+              return this._${field.name}_offset_cache;
             }
             const prevOffset = this.${prevField.name}_offset(view, initOffset);
             const totalOffset = prevOffset + ${name}.${prevField.name}_size(view, prevOffset);
-            this.#_${field.name}_offset_cache = totalOffset;
+            this._${field.name}_offset_cache = totalOffset;
             return totalOffset;
           }`);
-      }
-
-      // If the field is a simply type we use accessor notiation, this is sufficient to deserialized
-      // Builtin typed arrays fall into this category as well as builtin values
-      if (field.isComplex !== true) {
-        fields.push(`${field.name}: this.${field.name}`);
-      } else if (field.isArray === true) {
-        // The field is an array of complex values, we map each one using toJSON
-        fields.push(`${field.name}: this.${field.name}.map((item) => item.toJSON())`);
-      } else {
-        // The field is a single item complex value
-        fields.push(`${field.name}: this.${field.name}.toJSON()`);
       }
 
       prevField = field;
@@ -301,12 +288,12 @@ export default function buildReader(
 
         // return the total serialized size of the message in the view
         static size(view /* DataView */, initOffset = 0) {
-            let totalSize = 0;
-            let offset = initOffset;
+          let totalSize = 0;
+          let offset = initOffset;
 
-            ${type.definitions.map(sizePartForDefinition.bind(undefined, name)).join("\n")}
-            
-            return totalSize;
+          ${type.definitions.map(sizePartForDefinition.bind(undefined, name)).join("\n")}
+
+          return totalSize;
         }
 
         ${offsetFns.join("\n")}
@@ -314,23 +301,21 @@ export default function buildReader(
         // return an instance of ${name} from the view at initOffset bytes into the view
         // NOTE: the underlying view data lifetime must be at least the lifetime of the instance
         static build(view /* DataView */, offset = 0) {
-            return new ${name}(view, offset);
+          return new ${name}(view, offset);
         }
-
-        #view = undefined;
-        #offset;
   
         constructor(view, offset = 0) {
-          this.#view = view;
-          this.#offset = offset;
+          this._view = view;
+          this._offset = offset;
+          ${initializers.join("\n")}
         }
 
         // return a json object of the fields
         // This fully deserializes all fields of the message into native types
         // Typed arrays are considered native types and remain as typed arrays
         toJSON() {
-          const view = this.#view;
-          const buffer = new Uint8Array(view.buffer, view.byteOffset + this.#offset, view.byteLength - this.#offset);
+          const view = this._view;
+          const buffer = new Uint8Array(view.buffer, view.byteOffset + this._offset, view.byteLength - this._offset);
           const reader = new StandardTypeReader(buffer);
           return new (typeReaders.get(${JSON.stringify(type.name ?? rootClassName)}))(reader);
         }
