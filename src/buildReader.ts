@@ -320,6 +320,16 @@ export default function buildReader(
           return new (typeReaders.get(${JSON.stringify(type.name ?? rootClassName)}))(reader);
         }
 
+        // return a plain javascript object of the message
+        // This fully deserializes all fields of the message into native types
+        // Typed arrays are considered native types and remain as typed arrays
+        toObject() {
+          const view = this._view;
+          const buffer = new Uint8Array(view.buffer, view.byteOffset + this._offset, view.byteLength - this._offset);
+          const reader = new StandardTypeReader(buffer);
+          return new (typeReaders.get(${JSON.stringify(type.name ?? rootClassName)}))(reader);
+        }
+
         ${type.definitions.map(getterFunction).join("\n")}
     }`;
 

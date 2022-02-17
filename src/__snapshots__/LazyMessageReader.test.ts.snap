@@ -59,6 +59,20 @@ exports[`LazyReader should deserialize CustomType custom
       return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
+    }
+
     get first() {
       const offset = this.first_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -104,6 +118,20 @@ exports[`LazyReader should deserialize CustomType custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -189,6 +217,20 @@ exports[`LazyReader should deserialize CustomType[] custom
       return new (typeReaders.get(\\"custom_type/MoreCustom\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"custom_type/MoreCustom\\"))(reader);
+    }
+
     get field() {
       const offset = this.field_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -244,6 +286,20 @@ exports[`LazyReader should deserialize CustomType[] custom
       return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
+    }
+
     get another() {
       const offset = this.another_offset(this._view, this._offset);
       return custom_type_MoreCustom.build(this._view, offset);
@@ -289,6 +345,20 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -374,6 +444,20 @@ exports[`LazyReader should deserialize CustomType[] custom
       return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
+    }
+
     get first() {
       const offset = this.first_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -419,6 +503,20 @@ exports[`LazyReader should deserialize CustomType[] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -504,6 +602,20 @@ exports[`LazyReader should deserialize CustomType[3] custom
       return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"custom_type/CustomType\\"))(reader);
+    }
+
     get first() {
       const offset = this.first_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -554,6 +666,20 @@ exports[`LazyReader should deserialize CustomType[3] custom
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -634,6 +760,20 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get stamp() {
       const offset = this.stamp_offset(this._view, this._offset);
       return deserializers.duration(this._view, offset);
@@ -691,6 +831,20 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -766,6 +920,20 @@ exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     // duration[1] arr
     get arr() {
       const offset = this.arr_offset(this._view, this._offset);
@@ -820,6 +988,20 @@ exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -887,6 +1069,20 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -991,6 +1187,20 @@ float32[] second 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     // float32[] first
     get first() {
       const offset = this.first_offset(this._view, this._offset);
@@ -1053,6 +1263,20 @@ exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -1127,6 +1351,20 @@ exports[`LazyReader should deserialize float64 sample: float64 sample 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.float64(this._view, offset);
@@ -1184,6 +1422,20 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -1278,6 +1530,20 @@ int8 second 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get first() {
       const offset = this.first_offset(this._view, this._offset);
       return deserializers.int8(this._view, offset);
@@ -1345,6 +1611,20 @@ exports[`LazyReader should deserialize int8 sample # highest: int8 sample # high
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.int8(this._view, offset);
@@ -1398,6 +1678,20 @@ exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowes
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -1475,6 +1769,20 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     // int8[] first
     get first() {
       const offset = this.first_offset(this._view, this._offset);
@@ -1530,6 +1838,20 @@ exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -1604,6 +1926,20 @@ exports[`LazyReader should deserialize int16 sample # highest: int16 sample # hi
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.int16(this._view, offset);
@@ -1657,6 +1993,20 @@ exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -1730,6 +2080,20 @@ exports[`LazyReader should deserialize int32 sample # highest: int32 sample # hi
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.int32(this._view, offset);
@@ -1783,6 +2147,20 @@ exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -1860,6 +2238,20 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     // int32[] arr
     get arr() {
       const offset = this.arr_offset(this._view, this._offset);
@@ -1925,6 +2317,20 @@ exports[`LazyReader should deserialize int64 sample # highest: int64 sample # hi
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.int64(this._view, offset);
@@ -1978,6 +2384,20 @@ exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # low
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2075,6 +2495,20 @@ int8 second 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get first() {
       const offset = this.first_offset(this._view, this._offset);
       return deserializers.string(this._view, offset);
@@ -2135,6 +2569,20 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2211,6 +2659,20 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.string(this._view, offset);
@@ -2267,6 +2729,20 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2349,6 +2825,20 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     // string[2] first
     get first() {
       const offset = this.first_offset(this._view, this._offset);
@@ -2409,6 +2899,20 @@ exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2486,6 +2990,20 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     // time[] arr
     get arr() {
       const offset = this.arr_offset(this._view, this._offset);
@@ -2541,6 +3059,20 @@ exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2630,6 +3162,20 @@ float32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2731,6 +3277,20 @@ float32[2] arr 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get blank() {
       const offset = this.blank_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -2815,6 +3375,20 @@ int32[] arr 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -2920,6 +3494,20 @@ time[] arr 1`] = `
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get blank() {
       const offset = this.blank_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -2980,6 +3568,20 @@ exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # hi
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -3053,6 +3655,20 @@ exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # low
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.uint8(this._view, offset);
@@ -3106,6 +3722,20 @@ exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -3180,6 +3810,20 @@ exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # 
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.uint16(this._view, offset);
@@ -3233,6 +3877,20 @@ exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # l
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -3306,6 +3964,20 @@ exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # 
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.uint32(this._view, offset);
@@ -3359,6 +4031,20 @@ exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # l
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,
@@ -3432,6 +4118,20 @@ exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # 
       return new (typeReaders.get(\\"__RootMsg\\"))(reader);
     }
 
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
     get sample() {
       const offset = this.sample_offset(this._view, this._offset);
       return deserializers.uint64(this._view, offset);
@@ -3485,6 +4185,20 @@ exports[`LazyReader should deserialize uint64 sample # lowest: uint64 sample # l
     // This fully deserializes all fields of the message into native types
     // Typed arrays are considered native types and remain as typed arrays
     toJSON() {
+      const view = this._view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this._offset,
+        view.byteLength - this._offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get(\\"__RootMsg\\"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
       const view = this._view;
       const buffer = new Uint8Array(
         view.buffer,

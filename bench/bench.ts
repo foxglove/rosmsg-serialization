@@ -88,9 +88,9 @@ async function bench(testCase: Testcase): Promise<void> {
     {
       let msg = messageReader.readMessage(msgData);
       await benchmark.record(
-        ["lazy", "toJSON"],
+        ["lazy", "toObject"],
         () => {
-          msg.toJSON();
+          msg.toObject();
         },
         {
           beforeEach: () => {

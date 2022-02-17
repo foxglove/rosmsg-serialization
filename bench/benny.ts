@@ -51,11 +51,11 @@ async function makeSuite(testCase: Testcase): Promise<void> {
       };
     }),
 
-    benny.add("Lazy - w/toJSON", () => {
+    benny.add("Lazy - w/toObject", () => {
       const messageReader = new LazyMessageReader(messageDefinition);
       return () => {
         const msg = messageReader.readMessage(msgData);
-        msg.toJSON();
+        msg.toObject();
       };
     }),
 

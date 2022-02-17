@@ -16,7 +16,11 @@ if (!isLittleEndian) {
   throw new Error("Only Little Endian architectures are supported");
 }
 
-type LazyMessage<T> = T & { toJSON: () => T };
+type LazyMessage<T> = T & {
+  /** @deprecated */
+  toJSON: () => T;
+  toObject: () => T;
+};
 
 export class LazyMessageReader<T = unknown> {
   readerImpl: ReturnType<typeof buildReader>;

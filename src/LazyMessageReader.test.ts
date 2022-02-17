@@ -26,7 +26,10 @@ describe("LazyReader", () => {
         expect(reader.size(buffer)).toEqual(buffer.length);
 
         // check that our message matches the full object
-        const obj = read.toJSON();
+        const obj = read.toObject();
+        expect(read.toObject()).toEqual(expected);
+
+        // legacy api
         expect(read.toJSON()).toEqual(expected);
 
         // manually read each field to ensure lazy field access works
@@ -52,8 +55,11 @@ describe("LazyReader", () => {
         );
         expect(reader.size(buffer)).toEqual(buffer.length);
 
-        const obj = read.toJSON();
+        const obj = read.toObject();
         expect(obj).toEqual(expected);
+
+        // legacy api
+        expect(read.toJSON()).toEqual(expected);
 
         // manually read each field to ensure lazy field access works
         for (const key in obj) {
@@ -69,7 +75,7 @@ describe("LazyReader", () => {
     },
   );
 
-  it("should support toJSON for individual array fields", () => {
+  it("should support toObject for individual array fields", () => {
     const msgDef = `CustomType[3] custom
     ============
     MSG: custom_type/CustomType
@@ -78,17 +84,22 @@ describe("LazyReader", () => {
     const arr = [0x02, 0x03, 0x04];
 
     const buffer = Uint8Array.from(arr);
-    const reader = new LazyMessageReader<{ custom: { toJSON: () => unknown }[] }>(
-      parseMessageDefinition(msgDef),
-    );
+    const reader = new LazyMessageReader<{
+      custom: { toJSON: () => unknown; toObject: () => unknown }[];
+    }>(parseMessageDefinition(msgDef));
 
     const read = reader.readMessage(buffer);
+    expect(read.custom[0]?.toObject()).toEqual({ first: 2 });
+    expect(read.custom[1]?.toObject()).toEqual({ first: 3 });
+    expect(read.custom[2]?.toObject()).toEqual({ first: 4 });
+
+    // legacy api
     expect(read.custom[0]?.toJSON()).toEqual({ first: 2 });
     expect(read.custom[1]?.toJSON()).toEqual({ first: 3 });
     expect(read.custom[2]?.toJSON()).toEqual({ first: 4 });
   });
 
-  it("should support toJSON for individual fields", () => {
+  it("should support toObject for individual fields", () => {
     const msgDef = `CustomType custom1
     CustomType custom2
     ============
@@ -99,11 +110,15 @@ describe("LazyReader", () => {
 
     const buffer = Uint8Array.from(arr);
     const reader = new LazyMessageReader<{
-      custom1: { toJSON: () => unknown };
-      custom2: { toJSON: () => unknown };
+      custom1: { toJSON: () => unknown; toObject: () => unknown };
+      custom2: { toJSON: () => unknown; toObject: () => unknown };
     }>(parseMessageDefinition(msgDef));
 
     const read = reader.readMessage(buffer);
+    expect(read.custom1.toObject()).toEqual({ first: 3 });
+    expect(read.custom2.toObject()).toEqual({ first: 7 });
+
+    // legacy api
     expect(read.custom1.toJSON()).toEqual({ first: 3 });
     expect(read.custom2.toJSON()).toEqual({ first: 7 });
   });
