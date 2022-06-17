@@ -306,10 +306,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/runtime@^7.15.4":
-  version "7.15.4"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
-  integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
+"@babel/runtime@^7.18.3":
+  version "7.18.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.3.tgz#c7b654b57f6f63cf7f8b418ac9ca04408c4579f4"
+  integrity sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -1334,10 +1334,10 @@ common-tags@^1.8.0:
   resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.8.2.tgz#94ebb3c076d26032745fd54face7f688ef5ac9c6"
   integrity sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==
 
-complex.js@^2.0.15:
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/complex.js/-/complex.js-2.0.15.tgz#7add6848b4c1d12aa9262f7df925ebe7a51a7406"
-  integrity sha512-gDBvQU8IG139ZBQTSo2qvDFP+lANMGluM779csXOr6ny1NUtA3wkUnCFjlDNH/moAVfXtvClYt6G0zarFbtz5w==
+complex.js@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/complex.js/-/complex.js-2.1.1.tgz#0675dac8e464ec431fb2ab7d30f41d889fb25c31"
+  integrity sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -1933,10 +1933,10 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-fraction.js@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.1.1.tgz#ac4e520473dae67012d618aab91eda09bcb400ff"
-  integrity sha512-MHOhvvxHTfRFpF1geTK9czMIZ6xclsEor2wkIGYYq+PxcQqT7vStJqjhe6S1TenZrMZzo+wlqOufBDVepUEgPg==
+fraction.js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.2.0.tgz#448e5109a313a3527f5a3ab2119ec4cf0e0e2950"
+  integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
 fs-extra@^10.0.0:
   version "10.0.0"
@@ -2909,13 +2909,13 @@ jsonparse@^1.3.1:
   resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
   integrity sha1-P02uSpH6wxX3EGL4UhzCOfE2YoA=
 
-kelonio@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/kelonio/-/kelonio-0.7.0.tgz#fa8dca9b8b91e80add345c46053034580aaa8b46"
-  integrity sha512-XSU6NORWsQlpSq32SaVsYyDGIVHrsM+fWFypZJFphuQh3qLozd8nBDc9d42JAyfVbeUnEuovJ0W99AuGUvY9Ig==
+kelonio@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/kelonio/-/kelonio-0.8.0.tgz#bb5b15439ce64f9d2dddb9f63eff5613c69a6e75"
+  integrity sha512-+mxGulj4DEGEzk7rFiwFlYUfz2145rBjWICSmmzR1A2zgcd2oE3UtHiiPQTWPa5z2aHT6uiEIyPzIsetfHNcYw==
   dependencies:
     browser-process-hrtime "^1.0.0"
-    mathjs "^9.4.2"
+    mathjs "^10.5.2"
 
 kleur@^3.0.3:
   version "3.0.3"
@@ -3049,20 +3049,20 @@ makeerror@1.0.x:
   dependencies:
     tmpl "1.0.x"
 
-mathjs@^9.4.2:
-  version "9.5.0"
-  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-9.5.0.tgz#5e8ed06a8b539dadb0bcfbcb5d55fe88179daf86"
-  integrity sha512-a6QFEoLFLEI1cKr0B7lwAM1TTNAfNTxppimyqS5WhxGKXbV59DK4OX606z05PpuKpTiq7gTtPiSV0OAwFfxSvw==
+mathjs@^10.5.2:
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-10.6.1.tgz#95b34178eed65cbf7a63d35c468ad3ac912f7ddf"
+  integrity sha512-8iZp6uUKKBoCFoUHze9ydsrSji9/IOEzMhwURyoQXaLL1+ILEZnraw4KzZnUBt/XN6lPJPV+7JO94oil3AmosQ==
   dependencies:
-    "@babel/runtime" "^7.15.4"
-    complex.js "^2.0.15"
+    "@babel/runtime" "^7.18.3"
+    complex.js "^2.1.1"
     decimal.js "^10.3.1"
     escape-latex "^1.2.0"
-    fraction.js "^4.1.1"
+    fraction.js "^4.2.0"
     javascript-natural-sort "^0.7.1"
     seedrandom "^3.0.5"
     tiny-emitter "^2.1.0"
-    typed-function "^2.0.0"
+    typed-function "^2.1.0"
 
 md5-typescript@^1.0.5:
   version "1.0.5"
@@ -3879,10 +3879,10 @@ type-fest@^0.21.3:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
-typed-function@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-2.0.0.tgz#15ab3825845138a8b1113bd89e60cd6a435739e8"
-  integrity sha512-Hhy1Iwo/e4AtLZNK10ewVVcP2UEs408DS35ubP825w/YgSBK1KVLwALvvIG4yX75QJrxjCpcWkzkVRB0BwwYlA==
+typed-function@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-2.1.0.tgz#ded6f8a442ba8749ff3fe75bc41419c8d46ccc3f"
+  integrity sha512-bctQIOqx2iVbWGDGPWwIm18QScpu2XRmkC19D8rQGFsjKSgteq/o1hTZvIG/wuDq8fanpBDrLkLq+aEN/6y5XQ==
 
 typedarray-to-buffer@^3.1.5:
   version "3.1.5"
