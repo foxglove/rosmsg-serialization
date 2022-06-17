@@ -372,10 +372,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@foxglove/eslint-plugin@0.17.1":
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/@foxglove/eslint-plugin/-/eslint-plugin-0.17.1.tgz#f29fbe7bf538f2721535a9c06ec6ec607ad72f71"
-  integrity sha512-/Z32WFj7bBfEIdCh0aXTc5mQbVUcm1KvG586FxCq8k0r0oBUml0bAtLIem9IjE7sUWtabSDJWTFLJpHJhlP+XA==
+"@foxglove/eslint-plugin@0.19.0":
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/@foxglove/eslint-plugin/-/eslint-plugin-0.19.0.tgz#ad5be6462df5a1e3bb0425e948bea57d82dddcf3"
+  integrity sha512-pl/9v20nePLoY1+xHXUqcX4xADQeQnj20DHRP+E3cF+rNqayAklRDsM0lByVVdtgloBeoCwTas2uFYasNGpQGw==
 
 "@foxglove/rosmsg@^2.0.0 || ^3.0.0":
   version "3.0.0"
@@ -3315,10 +3315,10 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-percentile@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/percentile/-/percentile-1.5.0.tgz#6af7edebbe2578348ba81c4ebefd851b937dc130"
-  integrity sha512-Hc98z8qBZ5+rHNuWUQ4PTfqAeq4ndnSwYH18PSIa4lMWIY2sITFS/EC6/cOFujgbN4pdc6sALO4HvahYNYnxwA==
+percentile@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/percentile/-/percentile-1.6.0.tgz#c847b35a4d0a4e52235e16742aa3f317ce957293"
+  integrity sha512-8vSyjdzwxGDHHwH+cSGch3A9Uj2On3UpgOWxWXMKwUvoAbnujx6DaqmV1duWXNiH/oEWpyVd6nSQccix6DM3Ng==
 
 picomatch@^2.0.4, picomatch@^2.2.3:
   version "2.3.0"
@@ -3891,10 +3891,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@4.5.4:
-  version "4.5.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.4.tgz#a17d3a0263bf5c8723b9c52f43c5084edf13c2e8"
-  integrity sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==
+typescript@4.7.4:
+  version "4.7.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
+  integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
 
 unbox-primitive@^1.0.1:
   version "1.0.1"
