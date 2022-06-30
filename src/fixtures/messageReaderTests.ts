@@ -1,7 +1,7 @@
 const serializeString = (str: string): Uint8Array => {
   const data = Buffer.from(str, "utf8");
   const len = Buffer.alloc(4);
-  len.writeInt32LE(data.byteLength, 0);
+  len.writeUInt32LE(data.byteLength, 0);
   return Uint8Array.from([...len, ...data]);
 };
 

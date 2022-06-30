@@ -14,7 +14,7 @@ import { MessageWriter } from "./MessageWriter";
 const getStringBytes = (str: string): Uint8Array => {
   const textData = new TextEncoder().encode(str);
   const output = new Uint8Array(4 + textData.length);
-  new DataView(output.buffer).setInt32(0, textData.length, true);
+  new DataView(output.buffer).setUint32(0, textData.length, true);
   output.set(textData, 4);
   return output;
 };
@@ -119,7 +119,7 @@ describe("MessageWriter", () => {
     it("writes variable length string array", () => {
       const writer = new MessageWriter(parseMessageDefinition("string[] names"));
       const buff = concat([
-        // variable length array has int32 as first entry
+        // variable length array has uint32 as first entry
         new Uint8Array([0x03, 0x00, 0x00, 0x00]),
         getStringBytes("foo"),
         getStringBytes("bar"),
@@ -156,7 +156,7 @@ describe("MessageWriter", () => {
     it("does not write any data for a zero length array", () => {
       const writer = new MessageWriter(parseMessageDefinition("string[] names"));
       const buff = concat([
-        // variable length array has int32 as first entry
+        // variable length array has uint32 as first entry
         new Uint8Array([0x00, 0x00, 0x00, 0x00]),
       ]);
 

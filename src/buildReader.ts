@@ -6,7 +6,7 @@ import { deserializers, fixedSizeTypes, FixedSizeTypes } from "./BuiltinDeserial
 const builtinSizes = {
   // strings are the only builtin type that are variable size
   string: (view: DataView, offset: number) => {
-    const len = view.getInt32(offset, true);
+    const len = view.getUint32(offset, true);
     const maxLen = view.byteLength - offset - 4;
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String length error: length ${len}, maxLength ${maxLen}`);
