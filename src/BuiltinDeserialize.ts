@@ -163,7 +163,7 @@ export const deserializers: BuiltinReaders & {
   },
   duration: (view, offset) => deserializers.time(view, offset),
   string: (view, offset) => {
-    const len = view.getInt32(offset, true);
+    const len = view.getUint32(offset, true);
     const totalOffset = view.byteOffset + offset + 4;
     const maxLen = view.byteLength - offset;
     if (len < 0 || len > maxLen) {

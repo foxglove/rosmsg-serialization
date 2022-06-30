@@ -68,7 +68,7 @@ export class StandardTypeReader {
   }
 
   string(): string {
-    const len = this.int32();
+    const len = this.uint32();
     const totalOffset = this.view.byteOffset + this.offset;
     const maxLen = this.view.byteLength - this.offset;
     if (len < 0 || len > maxLen) {

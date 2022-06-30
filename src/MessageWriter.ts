@@ -44,7 +44,7 @@ class StandardTypeOffsetCalculator {
 
   // The following are used in the StandardTypeWriter.
   string(value: string): number {
-    // int32 length
+    // uint32 length
     if (typeof value !== "string") {
       throw new Error(`Expected string but got ${typeof value}`);
     }
@@ -129,7 +129,7 @@ class StandardTypeWriter {
       this.textEncoder = new TextEncoder();
     }
     const stringOffset = this.offsetCalculator.string(value);
-    this.view.setInt32(stringOffset, value.length, true);
+    this.view.setUint32(stringOffset, value.length, true);
     this.textEncoder.encodeInto(value, this.data.subarray(stringOffset + 4));
   }
 
