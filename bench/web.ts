@@ -42,10 +42,8 @@ function runCases(label: string, benchCases: BenchCase[]) {
 
   output(
     `
-    <section>
-      <h2>${label}</h2>
-      ${resultsString}
-    </section>
+    <h2>${label}</h2>
+    ${resultsString}
     `,
   );
 }
