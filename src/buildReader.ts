@@ -187,16 +187,16 @@ function getterFunction(field: RosMsgField): string {
         return `
           // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this._view, this._offset);
-            return deserializers.${field.type}Array(this._view, offset, ${arrLen});
+            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            return deserializers.${field.type}Array(this.#view, offset, ${arrLen});
           }`;
       } else {
         // fixed size array of complex size items
         return `
         // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this._view, this._offset);
-            return deserializers.fixedArray(this._view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
+            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            return deserializers.fixedArray(this.#view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
           }`;
       }
     } else {
@@ -205,23 +205,23 @@ function getterFunction(field: RosMsgField): string {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this._view, this._offset);
-            const len = this._view.getUint32(offset, true);
-            return deserializers.${field.type}Array(this._view, offset + 4, len);
+            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            const len = this.#view.getUint32(offset, true);
+            return deserializers.${field.type}Array(this.#view, offset + 4, len);
           }`;
       } else {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this._view, this._offset);
-            return deserializers.dynamicArray(this._view, offset, ${readerFn}, ${sizeFn});
+            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            return deserializers.dynamicArray(this.#view, offset, ${readerFn}, ${sizeFn});
           }`;
       }
     }
   } else {
     return `get ${field.name}() {
-        const offset = this.${field.name}_offset(this._view, this._offset);
-        return ${readerFn}(this._view, offset);
+        const offset = this.${field.name}_offset(this.#view, this.#offset);
+        return ${readerFn}(this.#view, offset);
       }`;
   }
 }
@@ -267,15 +267,15 @@ export default function buildReader(
       } else {
         // offsets tell you where the raw data of your field starts (including any length bytes)
         // they are the size of the offset of the previous field + size of previous field
-        initializers.push(`this._${field.name}_offset_cache = undefined;`);
+        initializers.push(`#_${field.name}_offset_cache = undefined;`);
         offsetFns.push(`
           ${field.name}_offset(view, initOffset) {
-            if (this._${field.name}_offset_cache) {
-              return this._${field.name}_offset_cache;
+            if (this.#_${field.name}_offset_cache) {
+              return this.#_${field.name}_offset_cache;
             }
             const prevOffset = this.${prevField.name}_offset(view, initOffset);
             const totalOffset = prevOffset + ${name}.${prevField.name}_size(view, prevOffset);
-            this._${field.name}_offset_cache = totalOffset;
+            this.#_${field.name}_offset_cache = totalOffset;
             return totalOffset;
           }`);
       }
@@ -303,19 +303,22 @@ export default function buildReader(
         static build(view /* DataView */, offset = 0) {
           return new ${name}(view, offset);
         }
+
+        #view = undefined;
+        #offset;
+        ${initializers.join("\n")}
   
         constructor(view, offset = 0) {
-          this._view = view;
-          this._offset = offset;
-          ${initializers.join("\n")}
+          this.#view = view;
+          this.#offset = offset;
         }
 
         // return a json object of the fields
         // This fully deserializes all fields of the message into native types
         // Typed arrays are considered native types and remain as typed arrays
         toJSON() {
-          const view = this._view;
-          const buffer = new Uint8Array(view.buffer, view.byteOffset + this._offset, view.byteLength - this._offset);
+          const view = this.#view;
+          const buffer = new Uint8Array(view.buffer, view.byteOffset + this.#offset, view.byteLength - this.#offset);
           const reader = new StandardTypeReader(buffer);
           return new (typeReaders.get(${JSON.stringify(type.name ?? rootClassName)}))(reader);
         }
@@ -324,8 +327,8 @@ export default function buildReader(
         // This fully deserializes all fields of the message into native types
         // Typed arrays are considered native types and remain as typed arrays
         toObject() {
-          const view = this._view;
-          const buffer = new Uint8Array(view.buffer, view.byteOffset + this._offset, view.byteLength - this._offset);
+          const view = this.#view;
+          const buffer = new Uint8Array(view.buffer, view.byteOffset + this.#offset, view.byteLength - this.#offset);
           const reader = new StandardTypeReader(buffer);
           return new (typeReaders.get(${JSON.stringify(type.name ?? rootClassName)}))(reader);
         }
