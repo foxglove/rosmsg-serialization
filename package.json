@@ -34,13 +34,15 @@
     "build": "yarn build:cjs && yarn build:esm",
     "build:esm": "tsc -b tsconfig.json",
     "build:cjs": "tsc -b tsconfig.cjs.json",
+    "build:web": "yarn run esbuild --bundle --outfile=dist/web.js bench/web.ts",
     "prepack": "yarn build",
     "lint:ci": "eslint --report-unused-disable-directives .",
     "lint": "eslint --report-unused-disable-directives --fix .",
     "prepublishOnly": "yarn lint:ci && yarn test",
     "test": "jest",
     "bench": "ts-node --project tsconfig.cjs.json bench/index.ts",
-    "bench:benny": "ts-node --project tsconfig.cjs.json bench/benny.ts"
+    "bench:benny": "ts-node --project tsconfig.cjs.json bench/benny.ts",
+    "bench:web": "yarn build:web && open bench/web.html"
   },
   "engines": {
     "node": ">= 14"
@@ -58,6 +60,7 @@
     "@typescript-eslint/parser": "4.33.0",
     "benny": "3.7.1",
     "console-table-printer": "2.10.0",
+    "esbuild": "0.14.53",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-es": "4.1.0",
