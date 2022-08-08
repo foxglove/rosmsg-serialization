@@ -7,6 +7,46 @@ export type Testcase = {
 
 export const testCases: Testcase[] = [
   {
+    name: "int8 array",
+    lastField: (msg: unknown): void => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+      void (msg as any).arr[99999];
+    },
+    msgDef: `int8[] arr`,
+    msg: {
+      arr: new Int8Array(100000).fill(3),
+    },
+  },
+
+  {
+    name: "float32 array",
+    lastField: (msg: unknown): void => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+      void (msg as any).arr[99999];
+    },
+    msgDef: `float32[] arr`,
+    msg: {
+      arr: new Float32Array(100000).fill(3),
+    },
+  },
+  {
+    name: "std_msgs/Header",
+    lastField: (msg: unknown): void => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+      void (msg as any).frame_id;
+    },
+    msgDef: `
+      uint32 seq
+      time stamp
+      string frame_id
+    `,
+    msg: {
+      seq: 0,
+      stamp: { sec: 0, nsec: 0 },
+      frame_id: "frame id",
+    },
+  },
+  {
     name: "sensor_msgs/PointCloud2",
     lastField: (msg: unknown): void => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
