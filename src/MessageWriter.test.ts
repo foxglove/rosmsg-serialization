@@ -86,6 +86,7 @@ describe("MessageWriter", () => {
     testNum("int32", 4, -210010, (data) => writeInt32LE(data, -210010, 0));
     testNum("uint32", 4, 210010, (data) => writeUInt32LE(data, 210010, 0));
     testNum("float32", 4, 5.5, (data) => writeFloatLE(data, 5.5, 0));
+    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
     testNum("float64", 8, 0xdeadbeefcafebabe, (data) => writeDoubleLE(data, 0xdeadbeefcafebabe, 0));
 
     it("writes strings", () => {
