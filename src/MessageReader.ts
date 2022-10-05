@@ -9,6 +9,8 @@
 
 import { RosMsgDefinition } from "@foxglove/rosmsg";
 
+import decodeString from "./decodeString";
+
 type TypedArray =
   | Int8Array
   | Uint8Array
@@ -34,28 +36,11 @@ export class StandardTypeReader {
   buffer: ArrayBufferView;
   offset: number;
   view: DataView;
-  _decoder?: TextDecoder;
-  _decoderStatus: "NOT_INITIALIZED" | "INITIALIZED" | "NOT_AVAILABLE" = "NOT_INITIALIZED";
 
   constructor(buffer: ArrayBufferView) {
     this.buffer = buffer;
     this.offset = 0;
     this.view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-  }
-
-  private _intializeTextDecoder() {
-    if (typeof global.TextDecoder === "undefined") {
-      this._decoderStatus = "NOT_AVAILABLE";
-      return;
-    }
-
-    try {
-      this._decoder = new global.TextDecoder("ascii");
-      this._decoderStatus = "INITIALIZED";
-    } catch (e) {
-      // Swallow the error if we don't support ascii encoding.
-      this._decoderStatus = "NOT_AVAILABLE";
-    }
   }
 
   json(): unknown {
@@ -74,28 +59,9 @@ export class StandardTypeReader {
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
-    const codePoints = new Uint8Array(this.view.buffer, totalOffset, len);
+    const data = new Uint8Array(this.view.buffer, totalOffset, len);
     this.offset += len;
-
-    // if the string is relatively short we can use apply, but longer strings can benefit from the speed of TextDecoder.
-    if (codePoints.length < 1000) {
-      return String.fromCharCode.apply(null, Array.from(codePoints));
-    }
-
-    // Use TextDecoder if it is available and supports the "ascii" encoding.
-    if (this._decoderStatus === "NOT_INITIALIZED") {
-      this._intializeTextDecoder();
-    }
-    if (this._decoder != undefined) {
-      return this._decoder.decode(codePoints);
-    }
-
-    // Otherwise, use string concatentation.
-    let data = "";
-    for (let i = 0; i < len; i++) {
-      data += String.fromCharCode(codePoints[i]!);
-    }
-    return data;
+    return decodeString(data);
   }
 
   bool(): boolean {

@@ -141,6 +141,7 @@ const messageReaderTests: MessageReaderTest[] = [
   ],
   [`string sample # empty string`, serializeString(""), { sample: "" }],
   [`string sample # some string`, serializeString("some string"), { sample: "some string" }],
+  [`string sample`, serializeString("毛地黄"), { sample: "毛地黄" }],
   [`int8[4] first`, [0x00, 0xff, 0x80, 0x7f], { first: new Int8Array([0, -1, -128, 127]) }],
   [
     `int8[] first`,

@@ -2782,6 +2782,89 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
 "
 `;
 
+exports[`LazyReader should deserialize string sample: string sample 1`] = `
+"function anonymous(
+  deserializers,
+  builtinSizes,
+  typeReaders,
+  StandardTypeReader
+) {
+  class __RootMsg {
+    static sample_size(view /* dataview */, offset) {
+      return builtinSizes.string(view, offset);
+    }
+
+    // return the total serialized size of the message in the view
+    static size(view /* DataView */, initOffset = 0) {
+      let totalSize = 0;
+      let offset = initOffset;
+
+      // string sample
+      {
+        const size = __RootMsg.sample_size(view, offset);
+        totalSize += size;
+        offset += size;
+      }
+
+      return totalSize;
+    }
+
+    sample_offset(view, initOffset) {
+      return initOffset;
+    }
+
+    // return an instance of __RootMsg from the view at initOffset bytes into the view
+    // NOTE: the underlying view data lifetime must be at least the lifetime of the instance
+    static build(view /* DataView */, offset = 0) {
+      return new __RootMsg(view, offset);
+    }
+
+    #view = undefined;
+    #offset;
+
+    constructor(view, offset = 0) {
+      this.#view = view;
+      this.#offset = offset;
+    }
+
+    // return a json object of the fields
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toJSON() {
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this.#offset,
+        view.byteLength - this.#offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get("__RootMsg"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this.#offset,
+        view.byteLength - this.#offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get("__RootMsg"))(reader);
+    }
+
+    get sample() {
+      const offset = this.sample_offset(this.#view, this.#offset);
+      return deserializers.string(this.#view, offset);
+    }
+  }
+  return __RootMsg;
+}
+"
+`;
+
 exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
 "function anonymous(
   deserializers,
