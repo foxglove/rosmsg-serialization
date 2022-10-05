@@ -27,6 +27,8 @@ interface TypedArrayConstructor {
   BYTES_PER_ELEMENT: number;
 }
 
+const decoder = new TextDecoder("utf8");
+
 // this has hard-coded buffer reading functions for each
 // of the standard message types http://docs.ros.org/api/std_msgs/html/index-msg.html
 // eventually custom types decompose into these standard types
@@ -34,7 +36,6 @@ export class StandardTypeReader {
   buffer: ArrayBufferView;
   offset: number;
   view: DataView;
-  _decoder = new TextDecoder("utf8");
 
   constructor(buffer: ArrayBufferView) {
     this.buffer = buffer;
@@ -60,7 +61,7 @@ export class StandardTypeReader {
     }
     const codePoints = new Uint8Array(this.view.buffer, totalOffset, len);
     this.offset += len;
-    return this._decoder.decode(codePoints);
+    return decoder.decode(codePoints);
   }
 
   bool(): boolean {
