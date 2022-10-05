@@ -8,6 +8,7 @@
 //   You may not use this file except in compliance with the License.
 
 import { RosMsgDefinition } from "@foxglove/rosmsg";
+import decodeString from "./decodeString";
 
 type TypedArray =
   | Int8Array
@@ -26,8 +27,6 @@ interface TypedArrayConstructor {
   new (buffer: ArrayBuffer, byteOffset: number, length: number): TypedArray;
   BYTES_PER_ELEMENT: number;
 }
-
-const decoder = new TextDecoder("utf8");
 
 // this has hard-coded buffer reading functions for each
 // of the standard message types http://docs.ros.org/api/std_msgs/html/index-msg.html
@@ -59,9 +58,9 @@ export class StandardTypeReader {
     if (len < 0 || len > maxLen) {
       throw new RangeError(`String deserialization error: length ${len}, maxLength ${maxLen}`);
     }
-    const codePoints = new Uint8Array(this.view.buffer, totalOffset, len);
+    const data = new Uint8Array(this.view.buffer, totalOffset, len);
     this.offset += len;
-    return decoder.decode(codePoints);
+    return decodeString(data);
   }
 
   bool(): boolean {
