@@ -7,7 +7,7 @@
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
 
-import { RosMsgDefinition } from "@foxglove/rosmsg";
+import { MessageDefinition } from "@foxglove/message-definition";
 
 import decodeString from "./decodeString";
 
@@ -160,7 +160,7 @@ export class StandardTypeReader {
   }
 }
 
-const findTypeByName = (types: readonly RosMsgDefinition[], name = ""): NamedRosMsgDefinition => {
+const findTypeByName = (types: readonly MessageDefinition[], name = ""): NamedMessageDefinition => {
   let foundName = ""; // track name separately in a non-null variable to appease Flow
   const matches = types.filter((type) => {
     const typeName = type.name ?? "";
@@ -187,7 +187,7 @@ const findTypeByName = (types: readonly RosMsgDefinition[], name = ""): NamedRos
 
 const friendlyName = (name: string) => name.replace(/\//g, "_");
 
-type NamedRosMsgDefinition = RosMsgDefinition & { name: string };
+type NamedMessageDefinition = MessageDefinition & { name: string };
 
 function toTypedArrayType(rosType: string): string | undefined {
   switch (rosType) {
@@ -221,7 +221,7 @@ export const createParsers = ({
   options = {},
   topLevelReaderKey,
 }: {
-  definitions: readonly RosMsgDefinition[];
+  definitions: readonly MessageDefinition[];
   options?: { freeze?: boolean };
   topLevelReaderKey: string;
 }): Map<string, { new (reader: StandardTypeReader): unknown }> => {
@@ -237,11 +237,11 @@ export const createParsers = ({
   const unnamedType = unnamedTypes.length > 0 ? unnamedTypes[0]! : definitions[0]!;
 
   // keep only definitions with a name
-  const namedTypes: NamedRosMsgDefinition[] = definitions.filter(
+  const namedTypes: NamedMessageDefinition[] = definitions.filter(
     (type) => !!type.name,
-  ) as NamedRosMsgDefinition[];
+  ) as NamedMessageDefinition[];
 
-  const constructorBody = (type: RosMsgDefinition | NamedRosMsgDefinition) => {
+  const constructorBody = (type: MessageDefinition | NamedMessageDefinition) => {
     const readerLines: string[] = [];
     type.definitions.forEach((def) => {
       if (def.isConstant === true) {
@@ -328,7 +328,7 @@ export class MessageReader {
   // takes an object message definition and returns
   // a message reader which can be used to read messages based
   // on the message definition
-  constructor(definitions: readonly RosMsgDefinition[], options: { freeze?: boolean } = {}) {
+  constructor(definitions: readonly MessageDefinition[], options: { freeze?: boolean } = {}) {
     this.reader = createParsers({ definitions, options, topLevelReaderKey: "<toplevel>" }).get(
       "<toplevel>",
     )!;

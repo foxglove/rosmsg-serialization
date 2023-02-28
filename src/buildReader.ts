@@ -1,4 +1,4 @@
-import { RosMsgDefinition, RosMsgField } from "@foxglove/rosmsg";
+import { MessageDefinition, MessageDefinitionField } from "@foxglove/message-definition";
 
 import { createParsers, StandardTypeReader } from ".";
 import { deserializers, fixedSizeTypes, FixedSizeTypes } from "./BuiltinDeserialize";
@@ -70,7 +70,7 @@ interface SerializedMessageReader {
 }
 
 // Return a static size function for our @param field
-function sizeFunction(field: RosMsgField): string {
+function sizeFunction(field: MessageDefinitionField): string {
   if (field.isConstant === true) {
     return "";
   }
@@ -125,7 +125,7 @@ function sizeFunction(field: RosMsgField): string {
 }
 
 // Return the part of the static size() function for our message class for @param field
-function sizePartForDefinition(className: string, field: RosMsgField): string {
+function sizePartForDefinition(className: string, field: MessageDefinitionField): string {
   if (field.isConstant === true) {
     return "";
   }
@@ -161,7 +161,7 @@ function sizePartForDefinition(className: string, field: RosMsgField): string {
 }
 
 // Create a getter function for the field
-function getterFunction(field: RosMsgField): string {
+function getterFunction(field: MessageDefinitionField): string {
   if (field.isConstant === true) {
     return "";
   }
@@ -236,7 +236,7 @@ function getterFunction(field: RosMsgField): string {
 // The offset methods calculate the start byte of the field within the entire message buffer.
 // The getter de-serializes the field from the message buffer.
 export default function buildReader(
-  definitions: readonly RosMsgDefinition[],
+  definitions: readonly MessageDefinition[],
 ): SerializedMessageReader {
   const classes = new Array<string>();
   const rootClassName = "__RootMsg";
@@ -248,7 +248,7 @@ export default function buildReader(
     const initializers = new Array<string>();
 
     // getters need to "look back" at the previous field to create the offset function calls
-    let prevField: RosMsgField | undefined;
+    let prevField: MessageDefinitionField | undefined;
 
     for (const field of type.definitions) {
       // constants have no impact on deserialization
