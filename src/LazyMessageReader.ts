@@ -1,4 +1,4 @@
-import { RosMsgDefinition } from "@foxglove/rosmsg";
+import { MessageDefinition } from "@foxglove/message-definition";
 
 import buildReader from "./buildReader";
 
@@ -24,9 +24,9 @@ type LazyMessage<T> = T & {
 
 export class LazyMessageReader<T = unknown> {
   readerImpl: ReturnType<typeof buildReader>;
-  definitions: RosMsgDefinition[];
+  definitions: MessageDefinition[];
 
-  constructor(definitions: RosMsgDefinition[]) {
+  constructor(definitions: MessageDefinition[]) {
     this.readerImpl = buildReader(definitions);
     this.definitions = definitions;
   }

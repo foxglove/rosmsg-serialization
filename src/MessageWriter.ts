@@ -7,7 +7,7 @@
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
 
-import { RosMsgDefinition, RosMsgField } from "@foxglove/rosmsg";
+import { MessageDefinition, MessageDefinitionField } from "@foxglove/message-definition";
 
 export interface Time {
   // whole seconds
@@ -18,7 +18,7 @@ export interface Time {
 
 type NamedRosMsgDefinition = {
   name: string;
-  definitions: RosMsgField[];
+  definitions: MessageDefinitionField[];
 };
 
 // write a Time object to a DataView.
@@ -187,7 +187,7 @@ class StandardTypeWriter {
   }
 }
 
-const findTypeByName = (types: RosMsgDefinition[], name = ""): NamedRosMsgDefinition => {
+const findTypeByName = (types: MessageDefinition[], name = ""): NamedRosMsgDefinition => {
   let foundName = ""; // track name separately in a non-null variable to appease Flow
   const matches = types.filter((type) => {
     const typeName = type.name ?? "";
@@ -218,7 +218,7 @@ type WriterAndSizeCalculator = {
   byteSizeCalculator: (message: unknown) => number;
 };
 
-function createWriterAndSizeCalculator(types: RosMsgDefinition[]): WriterAndSizeCalculator {
+function createWriterAndSizeCalculator(types: MessageDefinition[]): WriterAndSizeCalculator {
   if (types.length === 0) {
     throw new Error(`no types given`);
   }
@@ -235,7 +235,7 @@ function createWriterAndSizeCalculator(types: RosMsgDefinition[]): WriterAndSize
   ) as NamedRosMsgDefinition[];
 
   const constructorBody = (
-    type: RosMsgDefinition | NamedRosMsgDefinition,
+    type: MessageDefinition | NamedRosMsgDefinition,
     argName: "offsetCalculator" | "writer",
   ): string => {
     const lines: string[] = [];
@@ -341,7 +341,7 @@ export class MessageWriter {
   // takes an object string message definition and returns
   // a message writer which can be used to write messages based
   // on the message definition
-  constructor(definitions: RosMsgDefinition[]) {
+  constructor(definitions: MessageDefinition[]) {
     const { writer, byteSizeCalculator } = createWriterAndSizeCalculator(definitions);
     this.writer = writer;
     this.byteSizeCalculator = byteSizeCalculator;
