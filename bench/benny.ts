@@ -1,8 +1,8 @@
 import { parse } from "@foxglove/rosmsg";
 import benny from "benny";
 
-import { LazyMessageReader, MessageReader, MessageWriter } from "../src";
 import { Testcase, testCases } from "./testCases";
+import { LazyMessageReader, MessageReader, MessageWriter } from "../src";
 
 async function makeSuite(testCase: Testcase): Promise<void> {
   const name = testCase.name;
