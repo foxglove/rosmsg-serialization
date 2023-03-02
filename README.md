@@ -70,7 +70,7 @@ const uint8Array = writer.writeMessage({
 
 ## License
 
-@foxglove/rosmsg-serialization is licensed under [MIT License](https://opensource.org/licenses/MIT).
+@foxglove/rosmsg-serialization is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Releasing
 
