@@ -86,31 +86,31 @@ function sizeFunction(field: MessageDefinitionField): string {
     if (field.isArray === true) {
       if (field.arrayLength != undefined) {
         return `
-          static ${field.name}_size(view /* dataview */, offset) {
+          static __${field.name}$size(view /* dataview */, offset) {
               return builtinSizes.fixedArray(view, offset, ${field.arrayLength}, ${fieldSizeFn});
           }`;
       } else {
         return `
-          static ${field.name}_size(view /* dataview */, offset) {
+          static __${field.name}$size(view /* dataview */, offset) {
               return builtinSizes.array(view, offset, ${fieldSizeFn});
           }`;
       }
     }
 
     return `
-      static ${field.name}_size(view /* dataview */, offset) {
+      static __${field.name}$size(view /* dataview */, offset) {
           return ${fieldSizeFn}(view, offset);
       }`;
   } else {
     if (field.isArray === true) {
       if (field.arrayLength != undefined) {
         return `
-          static ${field.name}_size(view /* dataview */, offset) {
+          static __${field.name}$size(view /* dataview */, offset) {
             return ${fieldSize} * ${field.arrayLength};
           }`;
       } else {
         return `
-          static ${field.name}_size(view /* dataview */, offset) {
+          static __${field.name}$size(view /* dataview */, offset) {
             const len = view.getUint32(offset, true);
             return 4 + len * ${fieldSize};
           }`;
@@ -118,7 +118,7 @@ function sizeFunction(field: MessageDefinitionField): string {
     }
 
     return `
-      static ${field.name}_size(view /* dataview */, offset) {
+      static __${field.name}$size(view /* dataview */, offset) {
           return ${fieldSize};
       }`;
   }
@@ -153,7 +153,7 @@ function sizePartForDefinition(className: string, field: MessageDefinitionField)
   return `
     // ${field.type} ${field.name}
     {
-        const size = ${className}.${field.name}_size(view, offset);
+        const size = ${className}.__${field.name}$size(view, offset);
         totalSize += size;
         offset += size;
     }
@@ -187,7 +187,7 @@ function getterFunction(field: MessageDefinitionField): string {
         return `
           // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            const offset = this.__${field.name}$offset(this.#view, this.#offset);
             return deserializers.${field.type}Array(this.#view, offset, ${arrLen});
           }`;
       } else {
@@ -195,7 +195,7 @@ function getterFunction(field: MessageDefinitionField): string {
         return `
         // ${field.type}[${arrLen}] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            const offset = this.__${field.name}$offset(this.#view, this.#offset);
             return deserializers.fixedArray(this.#view, offset, ${arrLen}, ${readerFn}, ${sizeFn});
           }`;
       }
@@ -205,7 +205,7 @@ function getterFunction(field: MessageDefinitionField): string {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            const offset = this.__${field.name}$offset(this.#view, this.#offset);
             const len = this.#view.getUint32(offset, true);
             return deserializers.${field.type}Array(this.#view, offset + 4, len);
           }`;
@@ -213,14 +213,14 @@ function getterFunction(field: MessageDefinitionField): string {
         return `
           // ${field.type}[] ${field.name}
           get ${field.name}() {
-            const offset = this.${field.name}_offset(this.#view, this.#offset);
+            const offset = this.__${field.name}$offset(this.#view, this.#offset);
             return deserializers.dynamicArray(this.#view, offset, ${readerFn}, ${sizeFn});
           }`;
       }
     }
   } else {
     return `get ${field.name}() {
-        const offset = this.${field.name}_offset(this.#view, this.#offset);
+        const offset = this.__${field.name}$offset(this.#view, this.#offset);
         return ${readerFn}(this.#view, offset);
       }`;
   }
@@ -261,7 +261,7 @@ export default function buildReader(
       // the first first field is at offset 0
       if (prevField == undefined) {
         offsetFns.push(`
-          ${field.name}_offset(view, initOffset) {
+          __${field.name}$offset(view, initOffset) {
             return initOffset;
           }`);
       } else {
@@ -269,12 +269,12 @@ export default function buildReader(
         // they are the size of the offset of the previous field + size of previous field
         initializers.push(`#_${field.name}_offset_cache = undefined;`);
         offsetFns.push(`
-          ${field.name}_offset(view, initOffset) {
+          __${field.name}$offset(view, initOffset) {
             if (this.#_${field.name}_offset_cache) {
               return this.#_${field.name}_offset_cache;
             }
-            const prevOffset = this.${prevField.name}_offset(view, initOffset);
-            const totalOffset = prevOffset + ${name}.${prevField.name}_size(view, prevOffset);
+            const prevOffset = this.__${prevField.name}$offset(view, initOffset);
+            const totalOffset = prevOffset + ${name}.__${prevField.name}$size(view, prevOffset);
             this.#_${field.name}_offset_cache = totalOffset;
             return totalOffset;
           }`);
