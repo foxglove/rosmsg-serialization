@@ -122,4 +122,23 @@ describe("LazyReader", () => {
     expect(read.custom1.toJSON()).toEqual({ first: 3 });
     expect(read.custom2.toJSON()).toEqual({ first: 7 });
   });
+
+  it("should support field names ending in _offset", () => {
+    const msgDef = `CustomType custom
+    ============
+    MSG: custom_type/CustomType
+    uint8 first
+    uint8 first_offset`;
+
+    const arr = [0x03, 0x07];
+
+    const buffer = Uint8Array.from(arr);
+    const reader = new LazyMessageReader<{
+      custom: { first: number; first_offset: number };
+    }>(parseMessageDefinition(msgDef));
+
+    const read = reader.readMessage(buffer);
+    expect(read.custom.first).toEqual(3);
+    expect(read.custom.first_offset).toEqual(7);
+  });
 });

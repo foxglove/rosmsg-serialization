@@ -14,7 +14,7 @@ exports[`LazyReader should deserialize CustomType custom
   StandardTypeReader
 ) {
   class custom_type_CustomType {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -30,7 +30,7 @@ exports[`LazyReader should deserialize CustomType custom
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -77,13 +77,13 @@ exports[`LazyReader should deserialize CustomType custom
     }
 
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
   }
 
   class __RootMsg {
-    static custom_size(view /* dataview */, offset) {
+    static __custom$size(view /* dataview */, offset) {
       return custom_type_CustomType.size(view, offset);
     }
 
@@ -94,7 +94,7 @@ exports[`LazyReader should deserialize CustomType custom
 
       // custom_type/CustomType custom
       {
-        const size = __RootMsg.custom_size(view, offset);
+        const size = __RootMsg.__custom$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -102,7 +102,7 @@ exports[`LazyReader should deserialize CustomType custom
       return totalSize;
     }
 
-    custom_offset(view, initOffset) {
+    __custom$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -149,7 +149,7 @@ exports[`LazyReader should deserialize CustomType custom
     }
 
     get custom() {
-      const offset = this.custom_offset(this.#view, this.#offset);
+      const offset = this.__custom$offset(this.#view, this.#offset);
       return custom_type_CustomType.build(this.#view, offset);
     }
   }
@@ -178,7 +178,7 @@ exports[`LazyReader should deserialize CustomType[] custom
   StandardTypeReader
 ) {
   class custom_type_MoreCustom {
-    static field_size(view /* dataview */, offset) {
+    static __field$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -194,7 +194,7 @@ exports[`LazyReader should deserialize CustomType[] custom
       return totalSize;
     }
 
-    field_offset(view, initOffset) {
+    __field$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -241,13 +241,13 @@ exports[`LazyReader should deserialize CustomType[] custom
     }
 
     get field() {
-      const offset = this.field_offset(this.#view, this.#offset);
+      const offset = this.__field$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
   }
 
   class custom_type_CustomType {
-    static another_size(view /* dataview */, offset) {
+    static __another$size(view /* dataview */, offset) {
       return custom_type_MoreCustom.size(view, offset);
     }
 
@@ -258,7 +258,7 @@ exports[`LazyReader should deserialize CustomType[] custom
 
       // custom_type/MoreCustom another
       {
-        const size = custom_type_CustomType.another_size(view, offset);
+        const size = custom_type_CustomType.__another$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -266,7 +266,7 @@ exports[`LazyReader should deserialize CustomType[] custom
       return totalSize;
     }
 
-    another_offset(view, initOffset) {
+    __another$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -313,13 +313,13 @@ exports[`LazyReader should deserialize CustomType[] custom
     }
 
     get another() {
-      const offset = this.another_offset(this.#view, this.#offset);
+      const offset = this.__another$offset(this.#view, this.#offset);
       return custom_type_MoreCustom.build(this.#view, offset);
     }
   }
 
   class __RootMsg {
-    static custom_size(view /* dataview */, offset) {
+    static __custom$size(view /* dataview */, offset) {
       return builtinSizes.array(view, offset, custom_type_CustomType.size);
     }
 
@@ -330,7 +330,7 @@ exports[`LazyReader should deserialize CustomType[] custom
 
       // custom_type/CustomType custom
       {
-        const size = __RootMsg.custom_size(view, offset);
+        const size = __RootMsg.__custom$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -338,7 +338,7 @@ exports[`LazyReader should deserialize CustomType[] custom
       return totalSize;
     }
 
-    custom_offset(view, initOffset) {
+    __custom$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -386,7 +386,7 @@ exports[`LazyReader should deserialize CustomType[] custom
 
     // custom_type/CustomType[] custom
     get custom() {
-      const offset = this.custom_offset(this.#view, this.#offset);
+      const offset = this.__custom$offset(this.#view, this.#offset);
       return deserializers.dynamicArray(
         this.#view,
         offset,
@@ -414,7 +414,7 @@ exports[`LazyReader should deserialize CustomType[] custom
   StandardTypeReader
 ) {
   class custom_type_CustomType {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -430,7 +430,7 @@ exports[`LazyReader should deserialize CustomType[] custom
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -477,13 +477,13 @@ exports[`LazyReader should deserialize CustomType[] custom
     }
 
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
   }
 
   class __RootMsg {
-    static custom_size(view /* dataview */, offset) {
+    static __custom$size(view /* dataview */, offset) {
       return builtinSizes.array(view, offset, custom_type_CustomType.size);
     }
 
@@ -494,7 +494,7 @@ exports[`LazyReader should deserialize CustomType[] custom
 
       // custom_type/CustomType custom
       {
-        const size = __RootMsg.custom_size(view, offset);
+        const size = __RootMsg.__custom$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -502,7 +502,7 @@ exports[`LazyReader should deserialize CustomType[] custom
       return totalSize;
     }
 
-    custom_offset(view, initOffset) {
+    __custom$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -550,7 +550,7 @@ exports[`LazyReader should deserialize CustomType[] custom
 
     // custom_type/CustomType[] custom
     get custom() {
-      const offset = this.custom_offset(this.#view, this.#offset);
+      const offset = this.__custom$offset(this.#view, this.#offset);
       return deserializers.dynamicArray(
         this.#view,
         offset,
@@ -578,7 +578,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
   StandardTypeReader
 ) {
   class custom_type_CustomType {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -594,7 +594,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -641,13 +641,13 @@ exports[`LazyReader should deserialize CustomType[3] custom
     }
 
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
   }
 
   class __RootMsg {
-    static custom_size(view /* dataview */, offset) {
+    static __custom$size(view /* dataview */, offset) {
       return builtinSizes.fixedArray(
         view,
         offset,
@@ -663,7 +663,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
 
       // custom_type/CustomType custom
       {
-        const size = __RootMsg.custom_size(view, offset);
+        const size = __RootMsg.__custom$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -671,7 +671,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
       return totalSize;
     }
 
-    custom_offset(view, initOffset) {
+    __custom$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -719,7 +719,7 @@ exports[`LazyReader should deserialize CustomType[3] custom
 
     // custom_type/CustomType[3] custom
     get custom() {
-      const offset = this.custom_offset(this.#view, this.#offset);
+      const offset = this.__custom$offset(this.#view, this.#offset);
       return deserializers.fixedArray(
         this.#view,
         offset,
@@ -742,7 +742,7 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static stamp_size(view /* dataview */, offset) {
+    static __stamp$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -758,7 +758,7 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
       return totalSize;
     }
 
-    stamp_offset(view, initOffset) {
+    __stamp$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -805,7 +805,7 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
     }
 
     get stamp() {
-      const offset = this.stamp_offset(this.#view, this.#offset);
+      const offset = this.__stamp$offset(this.#view, this.#offset);
       return deserializers.duration(this.#view, offset);
     }
   }
@@ -822,7 +822,7 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 8;
     }
@@ -834,7 +834,7 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
 
       // duration arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -842,7 +842,7 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -890,7 +890,7 @@ exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
 
     // duration[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.durationArray(this.#view, offset + 4, len);
     }
@@ -908,7 +908,7 @@ exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       return 8 * 1;
     }
 
@@ -924,7 +924,7 @@ exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -972,7 +972,7 @@ exports[`LazyReader should deserialize duration[1] arr: duration[1] arr 1`] = `
 
     // duration[1] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       return deserializers.durationArray(this.#view, offset, 1);
     }
   }
@@ -989,7 +989,7 @@ exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 4;
     }
 
@@ -1005,7 +1005,7 @@ exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1052,7 +1052,7 @@ exports[`LazyReader should deserialize float32 sample: float32 sample 1`] = `
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.float32(this.#view, offset);
     }
   }
@@ -1069,7 +1069,7 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 4;
     }
@@ -1081,7 +1081,7 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
 
       // float32 arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -1089,7 +1089,7 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1137,7 +1137,7 @@ exports[`LazyReader should deserialize float32[] arr: float32[] arr 1`] = `
 
     // float32[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.float32Array(this.#view, offset + 4, len);
     }
@@ -1157,12 +1157,12 @@ float32[] second 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 4;
     }
 
-    static second_size(view /* dataview */, offset) {
+    static __second$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 4;
     }
@@ -1174,14 +1174,14 @@ float32[] second 1`] = `
 
       // float32 first
       {
-        const size = __RootMsg.first_size(view, offset);
+        const size = __RootMsg.__first$size(view, offset);
         totalSize += size;
         offset += size;
       }
 
       // float32 second
       {
-        const size = __RootMsg.second_size(view, offset);
+        const size = __RootMsg.__second$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -1189,16 +1189,16 @@ float32[] second 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
-    second_offset(view, initOffset) {
+    __second$offset(view, initOffset) {
       if (this.#_second_offset_cache) {
         return this.#_second_offset_cache;
       }
-      const prevOffset = this.first_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.first_size(view, prevOffset);
+      const prevOffset = this.__first$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__first$size(view, prevOffset);
       this.#_second_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -1248,14 +1248,14 @@ float32[] second 1`] = `
 
     // float32[] first
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.float32Array(this.#view, offset + 4, len);
     }
 
     // float32[] second
     get second() {
-      const offset = this.second_offset(this.#view, this.#offset);
+      const offset = this.__second$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.float32Array(this.#view, offset + 4, len);
     }
@@ -1273,7 +1273,7 @@ exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       return 4 * 2;
     }
 
@@ -1289,7 +1289,7 @@ exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1337,7 +1337,7 @@ exports[`LazyReader should deserialize float32[2] arr: float32[2] arr 1`] = `
 
     // float32[2] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       return deserializers.float32Array(this.#view, offset, 2);
     }
   }
@@ -1354,7 +1354,7 @@ exports[`LazyReader should deserialize float64 sample: float64 sample 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -1370,7 +1370,7 @@ exports[`LazyReader should deserialize float64 sample: float64 sample 1`] = `
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1417,7 +1417,7 @@ exports[`LazyReader should deserialize float64 sample: float64 sample 1`] = `
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.float64(this.#view, offset);
     }
   }
@@ -1438,7 +1438,7 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
   StandardTypeReader
 ) {
   class __RootMsg {
-    static status_size(view /* dataview */, offset) {
+    static __status$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -1454,7 +1454,7 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
       return totalSize;
     }
 
-    status_offset(view, initOffset) {
+    __status$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1501,7 +1501,7 @@ exports[`LazyReader should deserialize int8 STATUS_ONE = 1
     }
 
     get status() {
-      const offset = this.status_offset(this.#view, this.#offset);
+      const offset = this.__status$offset(this.#view, this.#offset);
       return deserializers.int8(this.#view, offset);
     }
   }
@@ -1520,11 +1520,11 @@ int8 second 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return 1;
     }
 
-    static second_size(view /* dataview */, offset) {
+    static __second$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -1544,16 +1544,16 @@ int8 second 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
-    second_offset(view, initOffset) {
+    __second$offset(view, initOffset) {
       if (this.#_second_offset_cache) {
         return this.#_second_offset_cache;
       }
-      const prevOffset = this.first_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.first_size(view, prevOffset);
+      const prevOffset = this.__first$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__first$size(view, prevOffset);
       this.#_second_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -1602,11 +1602,11 @@ int8 second 1`] = `
     }
 
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.int8(this.#view, offset);
     }
     get second() {
-      const offset = this.second_offset(this.#view, this.#offset);
+      const offset = this.__second$offset(this.#view, this.#offset);
       return deserializers.int8(this.#view, offset);
     }
   }
@@ -1623,7 +1623,7 @@ exports[`LazyReader should deserialize int8 sample # highest: int8 sample # high
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -1639,7 +1639,7 @@ exports[`LazyReader should deserialize int8 sample # highest: int8 sample # high
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1686,7 +1686,7 @@ exports[`LazyReader should deserialize int8 sample # highest: int8 sample # high
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int8(this.#view, offset);
     }
   }
@@ -1703,7 +1703,7 @@ exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowes
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -1719,7 +1719,7 @@ exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowes
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1766,7 +1766,7 @@ exports[`LazyReader should deserialize int8 sample # lowest: int8 sample # lowes
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int8(this.#view, offset);
     }
   }
@@ -1783,7 +1783,7 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 1;
     }
@@ -1795,7 +1795,7 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
 
       // int8 first
       {
-        const size = __RootMsg.first_size(view, offset);
+        const size = __RootMsg.__first$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -1803,7 +1803,7 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1851,7 +1851,7 @@ exports[`LazyReader should deserialize int8[] first: int8[] first 1`] = `
 
     // int8[] first
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.int8Array(this.#view, offset + 4, len);
     }
@@ -1869,7 +1869,7 @@ exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return 1 * 4;
     }
 
@@ -1885,7 +1885,7 @@ exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -1933,7 +1933,7 @@ exports[`LazyReader should deserialize int8[4] first: int8[4] first 1`] = `
 
     // int8[4] first
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.int8Array(this.#view, offset, 4);
     }
   }
@@ -1950,7 +1950,7 @@ exports[`LazyReader should deserialize int16 sample # highest: int16 sample # hi
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 2;
     }
 
@@ -1966,7 +1966,7 @@ exports[`LazyReader should deserialize int16 sample # highest: int16 sample # hi
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2013,7 +2013,7 @@ exports[`LazyReader should deserialize int16 sample # highest: int16 sample # hi
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int16(this.#view, offset);
     }
   }
@@ -2030,7 +2030,7 @@ exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # low
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 2;
     }
 
@@ -2046,7 +2046,7 @@ exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # low
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2093,7 +2093,7 @@ exports[`LazyReader should deserialize int16 sample # lowest: int16 sample # low
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int16(this.#view, offset);
     }
   }
@@ -2110,7 +2110,7 @@ exports[`LazyReader should deserialize int32 sample # highest: int32 sample # hi
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 4;
     }
 
@@ -2126,7 +2126,7 @@ exports[`LazyReader should deserialize int32 sample # highest: int32 sample # hi
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2173,7 +2173,7 @@ exports[`LazyReader should deserialize int32 sample # highest: int32 sample # hi
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int32(this.#view, offset);
     }
   }
@@ -2190,7 +2190,7 @@ exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # low
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 4;
     }
 
@@ -2206,7 +2206,7 @@ exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # low
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2253,7 +2253,7 @@ exports[`LazyReader should deserialize int32 sample # lowest: int32 sample # low
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int32(this.#view, offset);
     }
   }
@@ -2270,7 +2270,7 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 4;
     }
@@ -2282,7 +2282,7 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
 
       // int32 arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2290,7 +2290,7 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2338,7 +2338,7 @@ exports[`LazyReader should deserialize int32[] arr: int32[] arr 1`] = `
 
     // int32[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.int32Array(this.#view, offset + 4, len);
     }
@@ -2356,7 +2356,7 @@ exports[`LazyReader should deserialize int64 sample # highest: int64 sample # hi
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -2372,7 +2372,7 @@ exports[`LazyReader should deserialize int64 sample # highest: int64 sample # hi
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2419,7 +2419,7 @@ exports[`LazyReader should deserialize int64 sample # highest: int64 sample # hi
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int64(this.#view, offset);
     }
   }
@@ -2436,7 +2436,7 @@ exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # low
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -2452,7 +2452,7 @@ exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # low
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2499,7 +2499,7 @@ exports[`LazyReader should deserialize int64 sample # lowest: int64 sample # low
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.int64(this.#view, offset);
     }
   }
@@ -2518,11 +2518,11 @@ int8 second 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return builtinSizes.string(view, offset);
     }
 
-    static second_size(view /* dataview */, offset) {
+    static __second$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -2533,7 +2533,7 @@ int8 second 1`] = `
 
       // string first
       {
-        const size = __RootMsg.first_size(view, offset);
+        const size = __RootMsg.__first$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2545,16 +2545,16 @@ int8 second 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
-    second_offset(view, initOffset) {
+    __second$offset(view, initOffset) {
       if (this.#_second_offset_cache) {
         return this.#_second_offset_cache;
       }
-      const prevOffset = this.first_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.first_size(view, prevOffset);
+      const prevOffset = this.__first$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__first$size(view, prevOffset);
       this.#_second_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -2603,11 +2603,11 @@ int8 second 1`] = `
     }
 
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.string(this.#view, offset);
     }
     get second() {
-      const offset = this.second_offset(this.#view, this.#offset);
+      const offset = this.__second$offset(this.#view, this.#offset);
       return deserializers.int8(this.#view, offset);
     }
   }
@@ -2624,7 +2624,7 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return builtinSizes.string(view, offset);
     }
 
@@ -2635,7 +2635,7 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
 
       // string sample
       {
-        const size = __RootMsg.sample_size(view, offset);
+        const size = __RootMsg.__sample$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2643,7 +2643,7 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2690,7 +2690,7 @@ exports[`LazyReader should deserialize string sample # empty string: string samp
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.string(this.#view, offset);
     }
   }
@@ -2707,7 +2707,7 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return builtinSizes.string(view, offset);
     }
 
@@ -2718,7 +2718,7 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
 
       // string sample
       {
-        const size = __RootMsg.sample_size(view, offset);
+        const size = __RootMsg.__sample$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2726,7 +2726,7 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2773,7 +2773,7 @@ exports[`LazyReader should deserialize string sample # some string: string sampl
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.string(this.#view, offset);
     }
   }
@@ -2790,7 +2790,7 @@ exports[`LazyReader should deserialize string sample: string sample 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return builtinSizes.string(view, offset);
     }
 
@@ -2801,7 +2801,7 @@ exports[`LazyReader should deserialize string sample: string sample 1`] = `
 
       // string sample
       {
-        const size = __RootMsg.sample_size(view, offset);
+        const size = __RootMsg.__sample$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2809,7 +2809,7 @@ exports[`LazyReader should deserialize string sample: string sample 1`] = `
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2856,7 +2856,7 @@ exports[`LazyReader should deserialize string sample: string sample 1`] = `
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.string(this.#view, offset);
     }
   }
@@ -2873,7 +2873,7 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return builtinSizes.array(view, offset, builtinSizes.string);
     }
 
@@ -2884,7 +2884,7 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
 
       // string first
       {
-        const size = __RootMsg.first_size(view, offset);
+        const size = __RootMsg.__first$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2892,7 +2892,7 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -2940,7 +2940,7 @@ exports[`LazyReader should deserialize string[] first: string[] first 1`] = `
 
     // string[] first
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.dynamicArray(
         this.#view,
         offset,
@@ -2962,7 +2962,7 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return builtinSizes.fixedArray(view, offset, 2, builtinSizes.string);
     }
 
@@ -2973,7 +2973,7 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
 
       // string first
       {
-        const size = __RootMsg.first_size(view, offset);
+        const size = __RootMsg.__first$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -2981,7 +2981,7 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3029,7 +3029,7 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
 
     // string[2] first
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.fixedArray(
         this.#view,
         offset,
@@ -3052,7 +3052,7 @@ exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static stamp_size(view /* dataview */, offset) {
+    static __stamp$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -3068,7 +3068,7 @@ exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
       return totalSize;
     }
 
-    stamp_offset(view, initOffset) {
+    __stamp$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3115,7 +3115,7 @@ exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
     }
 
     get stamp() {
-      const offset = this.stamp_offset(this.#view, this.#offset);
+      const offset = this.__stamp$offset(this.#view, this.#offset);
       return deserializers.time(this.#view, offset);
     }
   }
@@ -3132,7 +3132,7 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 8;
     }
@@ -3144,7 +3144,7 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
 
       // time arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -3152,7 +3152,7 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3200,7 +3200,7 @@ exports[`LazyReader should deserialize time[] arr: time[] arr 1`] = `
 
     // time[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.timeArray(this.#view, offset + 4, len);
     }
@@ -3218,7 +3218,7 @@ exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       return 8 * 1;
     }
 
@@ -3234,7 +3234,7 @@ exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
       return totalSize;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3282,7 +3282,7 @@ exports[`LazyReader should deserialize time[1] arr: time[1] arr 1`] = `
 
     // time[1] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       return deserializers.timeArray(this.#view, offset, 1);
     }
   }
@@ -3301,11 +3301,11 @@ float32[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static blank_size(view /* dataview */, offset) {
+    static __blank$size(view /* dataview */, offset) {
       return 1;
     }
 
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 4;
     }
@@ -3321,7 +3321,7 @@ float32[] arr 1`] = `
 
       // float32 arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -3329,16 +3329,16 @@ float32[] arr 1`] = `
       return totalSize;
     }
 
-    blank_offset(view, initOffset) {
+    __blank$offset(view, initOffset) {
       return initOffset;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       if (this.#_arr_offset_cache) {
         return this.#_arr_offset_cache;
       }
-      const prevOffset = this.blank_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.blank_size(view, prevOffset);
+      const prevOffset = this.__blank$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__blank$size(view, prevOffset);
       this.#_arr_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -3387,13 +3387,13 @@ float32[] arr 1`] = `
     }
 
     get blank() {
-      const offset = this.blank_offset(this.#view, this.#offset);
+      const offset = this.__blank$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
 
     // float32[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.float32Array(this.#view, offset + 4, len);
     }
@@ -3413,11 +3413,11 @@ float32[2] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static blank_size(view /* dataview */, offset) {
+    static __blank$size(view /* dataview */, offset) {
       return 1;
     }
 
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       return 4 * 2;
     }
 
@@ -3437,16 +3437,16 @@ float32[2] arr 1`] = `
       return totalSize;
     }
 
-    blank_offset(view, initOffset) {
+    __blank$offset(view, initOffset) {
       return initOffset;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       if (this.#_arr_offset_cache) {
         return this.#_arr_offset_cache;
       }
-      const prevOffset = this.blank_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.blank_size(view, prevOffset);
+      const prevOffset = this.__blank$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__blank$size(view, prevOffset);
       this.#_arr_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -3495,13 +3495,13 @@ float32[2] arr 1`] = `
     }
 
     get blank() {
-      const offset = this.blank_offset(this.#view, this.#offset);
+      const offset = this.__blank$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
 
     // float32[2] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       return deserializers.float32Array(this.#view, offset, 2);
     }
   }
@@ -3520,11 +3520,11 @@ int32[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static blank_size(view /* dataview */, offset) {
+    static __blank$size(view /* dataview */, offset) {
       return 1;
     }
 
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 4;
     }
@@ -3540,7 +3540,7 @@ int32[] arr 1`] = `
 
       // int32 arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -3548,16 +3548,16 @@ int32[] arr 1`] = `
       return totalSize;
     }
 
-    blank_offset(view, initOffset) {
+    __blank$offset(view, initOffset) {
       return initOffset;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       if (this.#_arr_offset_cache) {
         return this.#_arr_offset_cache;
       }
-      const prevOffset = this.blank_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.blank_size(view, prevOffset);
+      const prevOffset = this.__blank$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__blank$size(view, prevOffset);
       this.#_arr_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -3606,13 +3606,13 @@ int32[] arr 1`] = `
     }
 
     get blank() {
-      const offset = this.blank_offset(this.#view, this.#offset);
+      const offset = this.__blank$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
 
     // int32[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.int32Array(this.#view, offset + 4, len);
     }
@@ -3632,11 +3632,11 @@ time[] arr 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static blank_size(view /* dataview */, offset) {
+    static __blank$size(view /* dataview */, offset) {
       return 1;
     }
 
-    static arr_size(view /* dataview */, offset) {
+    static __arr$size(view /* dataview */, offset) {
       const len = view.getUint32(offset, true);
       return 4 + len * 8;
     }
@@ -3652,7 +3652,7 @@ time[] arr 1`] = `
 
       // time arr
       {
-        const size = __RootMsg.arr_size(view, offset);
+        const size = __RootMsg.__arr$size(view, offset);
         totalSize += size;
         offset += size;
       }
@@ -3660,16 +3660,16 @@ time[] arr 1`] = `
       return totalSize;
     }
 
-    blank_offset(view, initOffset) {
+    __blank$offset(view, initOffset) {
       return initOffset;
     }
 
-    arr_offset(view, initOffset) {
+    __arr$offset(view, initOffset) {
       if (this.#_arr_offset_cache) {
         return this.#_arr_offset_cache;
       }
-      const prevOffset = this.blank_offset(view, initOffset);
-      const totalOffset = prevOffset + __RootMsg.blank_size(view, prevOffset);
+      const prevOffset = this.__blank$offset(view, initOffset);
+      const totalOffset = prevOffset + __RootMsg.__blank$size(view, prevOffset);
       this.#_arr_offset_cache = totalOffset;
       return totalOffset;
     }
@@ -3718,13 +3718,13 @@ time[] arr 1`] = `
     }
 
     get blank() {
-      const offset = this.blank_offset(this.#view, this.#offset);
+      const offset = this.__blank$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
 
     // time[] arr
     get arr() {
-      const offset = this.arr_offset(this.#view, this.#offset);
+      const offset = this.__arr$offset(this.#view, this.#offset);
       const len = this.#view.getUint32(offset, true);
       return deserializers.timeArray(this.#view, offset + 4, len);
     }
@@ -3742,7 +3742,7 @@ exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # hi
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -3758,7 +3758,7 @@ exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # hi
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3805,7 +3805,7 @@ exports[`LazyReader should deserialize uint8 sample # highest: uint8 sample # hi
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
   }
@@ -3822,7 +3822,7 @@ exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # low
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 1;
     }
 
@@ -3838,7 +3838,7 @@ exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # low
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3885,7 +3885,7 @@ exports[`LazyReader should deserialize uint8 sample # lowest: uint8 sample # low
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint8(this.#view, offset);
     }
   }
@@ -3902,7 +3902,7 @@ exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
   StandardTypeReader
 ) {
   class __RootMsg {
-    static first_size(view /* dataview */, offset) {
+    static __first$size(view /* dataview */, offset) {
       return 1 * 4;
     }
 
@@ -3918,7 +3918,7 @@ exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
       return totalSize;
     }
 
-    first_offset(view, initOffset) {
+    __first$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -3966,7 +3966,7 @@ exports[`LazyReader should deserialize uint8[4] first: uint8[4] first 1`] = `
 
     // uint8[4] first
     get first() {
-      const offset = this.first_offset(this.#view, this.#offset);
+      const offset = this.__first$offset(this.#view, this.#offset);
       return deserializers.uint8Array(this.#view, offset, 4);
     }
   }
@@ -3983,7 +3983,7 @@ exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # 
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 2;
     }
 
@@ -3999,7 +3999,7 @@ exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # 
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -4046,7 +4046,7 @@ exports[`LazyReader should deserialize uint16 sample # highest: uint16 sample # 
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint16(this.#view, offset);
     }
   }
@@ -4063,7 +4063,7 @@ exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # l
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 2;
     }
 
@@ -4079,7 +4079,7 @@ exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # l
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -4126,7 +4126,7 @@ exports[`LazyReader should deserialize uint16 sample # lowest: uint16 sample # l
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint16(this.#view, offset);
     }
   }
@@ -4143,7 +4143,7 @@ exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # 
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 4;
     }
 
@@ -4159,7 +4159,7 @@ exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # 
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -4206,7 +4206,7 @@ exports[`LazyReader should deserialize uint32 sample # highest: uint32 sample # 
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint32(this.#view, offset);
     }
   }
@@ -4223,7 +4223,7 @@ exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # l
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 4;
     }
 
@@ -4239,7 +4239,7 @@ exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # l
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -4286,7 +4286,7 @@ exports[`LazyReader should deserialize uint32 sample # lowest: uint32 sample # l
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint32(this.#view, offset);
     }
   }
@@ -4303,7 +4303,7 @@ exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # 
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -4319,7 +4319,7 @@ exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # 
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -4366,7 +4366,7 @@ exports[`LazyReader should deserialize uint64 sample # highest: uint64 sample # 
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint64(this.#view, offset);
     }
   }
@@ -4383,7 +4383,7 @@ exports[`LazyReader should deserialize uint64 sample # lowest: uint64 sample # l
   StandardTypeReader
 ) {
   class __RootMsg {
-    static sample_size(view /* dataview */, offset) {
+    static __sample$size(view /* dataview */, offset) {
       return 8;
     }
 
@@ -4399,7 +4399,7 @@ exports[`LazyReader should deserialize uint64 sample # lowest: uint64 sample # l
       return totalSize;
     }
 
-    sample_offset(view, initOffset) {
+    __sample$offset(view, initOffset) {
       return initOffset;
     }
 
@@ -4446,7 +4446,7 @@ exports[`LazyReader should deserialize uint64 sample # lowest: uint64 sample # l
     }
 
     get sample() {
-      const offset = this.sample_offset(this.#view, this.#offset);
+      const offset = this.__sample$offset(this.#view, this.#offset);
       return deserializers.uint64(this.#view, offset);
     }
   }
