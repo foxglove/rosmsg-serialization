@@ -48,25 +48,21 @@ const messageReaderTests: MessageReaderTest[] = [
     // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
     { sample: 0.123456789121212121212 },
   ],
+  [`time stamp`, [0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00], { stamp: { sec: 0, nsec: 1 } }],
   [
     `time stamp`,
-    [0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
-    {
-      stamp: {
-        sec: 0,
-        nsec: 1,
-      },
-    },
+    [0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff],
+    { stamp: { sec: 4294967295, nsec: 4294967295 } },
   ],
   [
     `duration stamp`,
     [0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
-    {
-      stamp: {
-        sec: 0,
-        nsec: 1,
-      },
-    },
+    { stamp: { sec: 0, nsec: 1 } },
+  ],
+  [
+    `duration stamp`,
+    [0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff],
+    { stamp: { sec: -1, nsec: -1 } },
   ],
   [
     `int32[] arr`,
