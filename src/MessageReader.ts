@@ -156,7 +156,11 @@ export class StandardTypeReader {
   }
 
   duration(): { sec: number; nsec: number } {
-    return this.time();
+    const offset = this.offset;
+    this.offset += 8;
+    const sec = this.view.getInt32(offset, true);
+    const nsec = this.view.getInt32(offset + 4, true);
+    return { sec, nsec };
   }
 }
 

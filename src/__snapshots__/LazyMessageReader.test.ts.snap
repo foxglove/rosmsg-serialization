@@ -814,6 +814,86 @@ exports[`LazyReader should deserialize duration stamp: duration stamp 1`] = `
 "
 `;
 
+exports[`LazyReader should deserialize duration stamp: duration stamp 2`] = `
+"function anonymous(
+  deserializers,
+  builtinSizes,
+  typeReaders,
+  StandardTypeReader
+) {
+  class __RootMsg {
+    static __stamp$size(view /* dataview */, offset) {
+      return 8;
+    }
+
+    // return the total serialized size of the message in the view
+    static size(view /* DataView */, initOffset = 0) {
+      let totalSize = 0;
+      let offset = initOffset;
+
+      // duration stamp
+      totalSize += 8;
+      offset += 8;
+
+      return totalSize;
+    }
+
+    __stamp$offset(view, initOffset) {
+      return initOffset;
+    }
+
+    // return an instance of __RootMsg from the view at initOffset bytes into the view
+    // NOTE: the underlying view data lifetime must be at least the lifetime of the instance
+    static build(view /* DataView */, offset = 0) {
+      return new __RootMsg(view, offset);
+    }
+
+    #view = undefined;
+    #offset;
+
+    constructor(view, offset = 0) {
+      this.#view = view;
+      this.#offset = offset;
+    }
+
+    // return a json object of the fields
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toJSON() {
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this.#offset,
+        view.byteLength - this.#offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get("__RootMsg"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this.#offset,
+        view.byteLength - this.#offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get("__RootMsg"))(reader);
+    }
+
+    get stamp() {
+      const offset = this.__stamp$offset(this.#view, this.#offset);
+      return deserializers.duration(this.#view, offset);
+    }
+  }
+  return __RootMsg;
+}
+"
+`;
+
 exports[`LazyReader should deserialize duration[] arr: duration[] arr 1`] = `
 "function anonymous(
   deserializers,
@@ -3045,6 +3125,86 @@ exports[`LazyReader should deserialize string[2] first: string[2] first 1`] = `
 `;
 
 exports[`LazyReader should deserialize time stamp: time stamp 1`] = `
+"function anonymous(
+  deserializers,
+  builtinSizes,
+  typeReaders,
+  StandardTypeReader
+) {
+  class __RootMsg {
+    static __stamp$size(view /* dataview */, offset) {
+      return 8;
+    }
+
+    // return the total serialized size of the message in the view
+    static size(view /* DataView */, initOffset = 0) {
+      let totalSize = 0;
+      let offset = initOffset;
+
+      // time stamp
+      totalSize += 8;
+      offset += 8;
+
+      return totalSize;
+    }
+
+    __stamp$offset(view, initOffset) {
+      return initOffset;
+    }
+
+    // return an instance of __RootMsg from the view at initOffset bytes into the view
+    // NOTE: the underlying view data lifetime must be at least the lifetime of the instance
+    static build(view /* DataView */, offset = 0) {
+      return new __RootMsg(view, offset);
+    }
+
+    #view = undefined;
+    #offset;
+
+    constructor(view, offset = 0) {
+      this.#view = view;
+      this.#offset = offset;
+    }
+
+    // return a json object of the fields
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toJSON() {
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this.#offset,
+        view.byteLength - this.#offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get("__RootMsg"))(reader);
+    }
+
+    // return a plain javascript object of the message
+    // This fully deserializes all fields of the message into native types
+    // Typed arrays are considered native types and remain as typed arrays
+    toObject() {
+      const view = this.#view;
+      const buffer = new Uint8Array(
+        view.buffer,
+        view.byteOffset + this.#offset,
+        view.byteLength - this.#offset
+      );
+      const reader = new StandardTypeReader(buffer);
+      return new (typeReaders.get("__RootMsg"))(reader);
+    }
+
+    get stamp() {
+      const offset = this.__stamp$offset(this.#view, this.#offset);
+      return deserializers.time(this.#view, offset);
+    }
+  }
+  return __RootMsg;
+}
+"
+`;
+
+exports[`LazyReader should deserialize time stamp: time stamp 2`] = `
 "function anonymous(
   deserializers,
   builtinSizes,
