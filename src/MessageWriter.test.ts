@@ -9,6 +9,7 @@
 
 import { parse as parseMessageDefinition } from "@foxglove/rosmsg";
 
+import { MessageReader } from "./MessageReader";
 import { MessageWriter } from "./MessageWriter";
 
 const getStringBytes = (str: string): Uint8Array => {
@@ -420,5 +421,47 @@ describe("MessageWriter", () => {
       const writer = new MessageWriter(parseMessageDefinition(messageDefinition));
       expect(writer.calculateByteSize(message)).toEqual(108);
     });
+  });
+
+  it.each([
+    "",
+    "a",
+    "ab",
+    "abc",
+    "abcd",
+    "béta",
+    "\xE9",
+    "\u0000",
+    "\u007f",
+    "\u0080",
+    "\u07ff",
+    "\u0800",
+    "\ud800\udc00", // surrogate pair, equivalent to "𐀀" or "\u{10000}"
+    "\udbff\udfff", // surrogate pair, equivalent to "\u{10ffff}"
+    "\u7fff",
+    "\u8000",
+    "\u8001",
+    "\uffff",
+    "\u{10000}",
+    "\u{fffff}",
+    "\u{100000}",
+    "\u{10ffff}",
+  ])("handles non-ascii strings", (str) => {
+    const defs = parseMessageDefinition("string data");
+    const writer = new MessageWriter(defs);
+    const reader = new MessageReader(defs);
+    const msg = { data: str };
+    expect(reader.readMessage(writer.writeMessage(msg))).toEqual(msg);
+  });
+
+  it.each([
+    "\ud800", // lone high surrogate
+    "\udc00", // lone low surrogate
+  ])("replaces lone surrogates with replacement character", (str) => {
+    const defs = parseMessageDefinition("string data");
+    const writer = new MessageWriter(defs);
+    const reader = new MessageReader(defs);
+    const msg = { data: str };
+    expect(reader.readMessage(writer.writeMessage(msg))).toEqual({ data: "\ufffd" });
   });
 });
