@@ -1,6 +1,7 @@
 /**
  * Returns the number of bytes that would be used when encoding the string as UTF-8, effectively the
  * same as `new TextEncoder().encode(str).length` but faster.
+ * https://jsbench.me/nzlrkwmeiq/1
  */
 export function stringLengthUtf8(str: string): number {
   let byteLength = 0;
