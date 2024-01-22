@@ -9,6 +9,8 @@
 
 import { MessageDefinition, MessageDefinitionField } from "@foxglove/message-definition";
 
+import { stringLengthUtf8 } from "./stringLengthUtf8";
+
 export interface Time {
   // whole seconds
   sec: number;
@@ -48,7 +50,7 @@ class StandardTypeOffsetCalculator {
     if (typeof value !== "string") {
       throw new Error(`Expected string but got ${typeof value}`);
     }
-    const length = 4 + value.length;
+    const length = 4 + stringLengthUtf8(value);
     return this._incrementAndReturn(length);
   }
 
@@ -129,8 +131,19 @@ class StandardTypeWriter {
       this.textEncoder = new TextEncoder();
     }
     const stringOffset = this.offsetCalculator.string(value);
-    this.view.setUint32(stringOffset, value.length, true);
-    this.textEncoder.encodeInto(value, this.data.subarray(stringOffset + 4));
+    const stringLength = this.offsetCalculator.offset - stringOffset - 4;
+    this.view.setUint32(stringOffset, stringLength, true);
+    const { read, written } = this.textEncoder.encodeInto(
+      value,
+      this.data.subarray(stringOffset + 4),
+    );
+    if (read !== value.length) {
+      throw new Error(
+        `Not enough space to encode string into subarray (wrote ${read!} of ${
+          value.length
+        } code units into ${written!} of ${this.data.subarray(stringOffset + 4).length} bytes)`,
+      );
+    }
   }
 
   // eslint-disable-next-line @foxglove/no-boolean-parameters
