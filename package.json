@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@foxglove/eslint-plugin": "0.22.1",
-    "@foxglove/rosmsg": "^4.0.0",
+    "@foxglove/rosmsg": "^5.0.4",
     "@foxglove/tsconfig": "1.1.0",
     "@types/jest": "^29.4.0",
     "@types/node": "^20.3.2",
