@@ -58,7 +58,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "benny": "3.7.1",
     "console-table-printer": "2.12.1",
-    "esbuild": "0.17.11",
+    "esbuild": "0.24.0",
     "eslint": "8.56.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-es": "4.1.0",
