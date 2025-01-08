@@ -1,5 +1,8 @@
 # @foxglove/rosmsg-serialization
 
+> [!IMPORTANT]
+> This package has moved to https://github.com/foxglove/ros-typescript.
+
 > _ROS1 (Robot Operating System) message serialization, for reading and writing bags and network messages_
 
 [![npm version](https://img.shields.io/npm/v/@foxglove/rosmsg-serialization.svg?style=flat)](https://www.npmjs.com/package/@foxglove/rosmsg-serialization)
